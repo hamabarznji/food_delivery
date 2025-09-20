@@ -14,7 +14,8 @@ const CustomerInfoComponent = ({
   lang = 'en'
 }) => {
   const t = translations[lang]; // get current language translations
-
+ const formatIQD = (value) =>
+    `${Number(value || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })} IQD`;
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
@@ -90,7 +91,7 @@ const CustomerInfoComponent = ({
       <div className="border-t pt-4 mt-6">
         <div className="text-center mb-4">
           <div className="text-xl font-bold" style={{ color: '#E35711' }}>
-            {t.orderTotal}: ${getTotalPrice().toFixed(2)}
+            {t.orderTotal}: {formatIQD(getTotalPrice())}
           </div>
         </div>
         <button

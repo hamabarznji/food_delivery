@@ -2,7 +2,7 @@ const menuData = {
 
   main: [
     { 
-      id: 5, 
+      id: 1, 
       name: ' مریشک و گۆشت و شلە', 
       description: 'سەلمۆنی ئاتلانتیک بە کەرە و زەیت و سەوزەکان', 
       price: 5000,
@@ -10,42 +10,42 @@ const menuData = {
     }],
   bbq: [
     { 
-      id: 5, 
+      id: 2, 
       name: 'کەبابی گۆشت', 
       description: 'سەلمۆنی ئاتلانتیک بە کەرە و زەیت و سەوزەکان', 
       price: 4000,
       image: 'https://images.ntviraq.com/wene/1620221921frxd5_iwqaejqzx.jpg'
     },
     { 
-      id: 6, 
+      id: 3, 
       name: ' کەبابی مەحشی', 
       description: 'قەتی 12oz پریمیم بە کەرە و کەچکۆڵی سیر', 
       price: 4000,
       image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop&auto=format'
     },
     { 
-      id: 7, 
+      id: 4, 
       name: ' تکەی گۆشت', 
       description: 'سەنانەی مرۆش بە بۆرده و موزارێلا و مارینارا', 
       price: 4000,
       image: 'https://45.nasin.systems/uploads/restaurantsitems/thumbnails/2712211253038654-1640606196.jpg'
     },
     { 
-      id: 8, 
+      id: 5, 
       name: 'تکەی مریشک ', 
       description: 'پێنەی بە سەوزەکان و سۆسی پێستو', 
       price: 4000,
       image: 'https://instalacarte.com/media/cache/mobile_image/product/2375/27369/c39d8ffd5025f75e28243e9805779d69.jpeg'
     },
     { 
-      id: 9, 
+      id: 6, 
       name: ' باڵی مریشک', 
       description: 'ماهی گریلکراو بە کەلەبە و سۆسی چیپۆتڵ', 
       price: 4000,
       image: 'https://esta.krd/wp-content/uploads/2024/08/R.jpg'
     },
     { 
-      id: 10, 
+      id: 7, 
       name: 'جەرگ', 
       description: 'ڕیبز فڕێکراو بە سۆسی خانەوەی BBQ', 
       price: 4000,
@@ -53,21 +53,21 @@ const menuData = {
     }
     ,
       { 
-      id: 11, 
+      id: 8, 
       name: 'دڵ', 
       description: 'ڕیبز فڕێکراو بە سۆسی خانەوەی BBQ', 
       price: 4000,
       image: 'https://cdnuploads.aa.com.tr/uploads/Contents/2021/04/17/thumbs_b_c_e540e224d2d477243686cebfdbaf52a7.jpg?v=142118'
     },
       { 
-      id: 12, 
+      id: 9, 
       name: 'گورچیلە', 
       description: 'ڕیبز فڕێکراو بە سۆسی خانەوەی BBQ', 
       price: 4000,
       image: 'https://cdnuploads.aa.com.tr/uploads/Contents/2021/04/17/thumbs_b_c_e540e224d2d477243686cebfdbaf52a7.jpg?v=142118'
     },
      { 
-      id: 13, 
+      id: 10, 
       name: 'دونگ ١ شیش', 
       description: 'ڕیبز فڕێکراو بە سۆسی خانەوەی BBQ', 
       price: 4000,
@@ -98,7 +98,7 @@ const menuData = {
       image: 'https://images.deliveryhero.io/image/talabat/MenuItems/%D8%B5%D8%A7%D8%AC_%D8%AF%D8%AC%D8%A7%D8%AC63842664730861110638759197932512083.jpg'
     },
     { 
-      id: 12, 
+      id: 14, 
       name: ' ساجی گۆشت', 
       description: 'دیسێرتی کلاسیکی ئیتالیا بە قاوە و ماسکارپۆن', 
       price: 3500,
