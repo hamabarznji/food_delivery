@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, X, Menu as MenuIcon } from 'lucide-react';
-import menuData from '../public/menu'
+import menuData from '@/public/menu';
+import Checkout from '@/src/checkout';
+import CustomerInfoComponent from '@/src/customerInfo'
+import Hero from '@/src/HeroSection'
 
 const RestaurantApp = () => {
   const [cart, setCart] = useState({});
@@ -16,8 +19,47 @@ const RestaurantApp = () => {
     building: '',
     floor: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
- 
+  // Telegram Bot Configuration
+  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
+  const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Replace with your chat ID
+
+  const sendToTelegram = async (orderDetails) => {
+    try {
+      const message = `🍽️ *NEW ORDER RECEIVED*\n\n` +
+        `👤 *Customer:* ${orderDetails.customerName}\n` +
+        `📱 *Phone:* ${orderDetails.phone}\n` +
+        `🏢 *Building:* ${orderDetails.building}\n` +
+        `🏠 *Floor:* ${orderDetails.floor}\n\n` +
+        `📋 *Order Items:*\n${orderDetails.items}\n\n` +
+        `💰 *Total Amount:* ${orderDetails.total}\n\n` +
+        `⏰ *Order Time:* ${new Date().toLocaleString()}`;
+
+      const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message to Telegram');
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Error sending to Telegram:', error);
+      return false;
+    }
+  };
+
+
 
   const sectionNames = {
     appetizers: 'Appetizers',
@@ -26,35 +68,35 @@ const RestaurantApp = () => {
     beverages: 'Beverages'
   };
 
-const addToCart = (item) => {
-  setCart(prev => {
-    const existing = prev[item.id];
-    return {
-      ...prev,
-      [item.id]: existing
-        ? { ...existing, quantity: existing.quantity + 1 }
-        : { ...item, quantity: 1 }
-    };
-  }); 
-};
+  const addToCart = (item) => {
+    setCart(prev => {
+      const existing = prev[item.id];
+      return {
+        ...prev,
+        [item.id]: existing
+          ? { ...existing, quantity: existing.quantity + 1 }
+          : { ...item, quantity: 1 }
+      };
+    });
+  };
 
-const updateQuantity = (id, change) => {
-  setCart(prev => {
-    const existing = prev[id];
-    if (!existing) return prev;
+  const updateQuantity = (id, change) => {
+    setCart(prev => {
+      const existing = prev[id];
+      if (!existing) return prev;
 
-    const newQty = existing.quantity + change;
-    if (newQty <= 0) {
-      const { [id]: _, ...rest } = prev; // remove item immutably
-      return rest;
-    }
+      const newQty = existing.quantity + change;
+      if (newQty <= 0) {
+        const { [id]: _, ...rest } = prev; // remove item immutably
+        return rest;
+      }
 
-    return {
-      ...prev,
-      [id]: { ...existing, quantity: newQty }
-    };
-  });
-};
+      return {
+        ...prev,
+        [id]: { ...existing, quantity: newQty }
+      };
+    });
+  };
 
 
   const getTotalItems = () => {
@@ -75,11 +117,11 @@ const updateQuantity = (id, change) => {
       alert('Please fill in all fields');
       return;
     }
-    
+
     const total = getTotalPrice();
-    
+
     alert(`Order placed successfully!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: ${total.toFixed(2)}\n\nThank you for your order!`);
-    
+
     setCart({});
     setIsCartOpen(false);
     setIsCheckout(false);
@@ -109,12 +151,11 @@ const updateQuantity = (id, change) => {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${
-                    activeSection === section 
-                      ? 'text-white shadow-lg' 
+                  className={`px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${activeSection === section
+                      ? 'text-white shadow-lg'
                       : 'text-gray-600 hover:text-white'
-                  }`}
-                  style={{ 
+                    }`}
+                  style={{
                     backgroundColor: activeSection === section ? '#E35711' : 'transparent',
                     ':hover': { backgroundColor: '#E35711' }
                   }}
@@ -173,11 +214,10 @@ const updateQuantity = (id, change) => {
                   <button
                     key={section}
                     onClick={() => scrollToSection(section)}
-                    className={`p-3 rounded-lg text-center transition-all duration-300 ${
-                      activeSection === section ? 'text-white' : 'text-gray-600'
-                    }`}
-                    style={{ 
-                      backgroundColor: activeSection === section ? '#E35711' : '#f3f4f6' 
+                    className={`p-3 rounded-lg text-center transition-all duration-300 ${activeSection === section ? 'text-white' : 'text-gray-600'
+                      }`}
+                    style={{
+                      backgroundColor: activeSection === section ? '#E35711' : '#f3f4f6'
                     }}
                   >
                     {sectionNames[section]}
@@ -190,21 +230,12 @@ const updateQuantity = (id, change) => {
       </header>
 
       {/* Hero Section */}
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-16 shadow-xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4" style={{ color: '#E35711' }}>
-            Welcome to Delicious Bites
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600">
-            Experience the finest flavors crafted with love and passion
-          </p>
-        </div>
-      </div>
+   <Hero/>
 
       {/* Menu Sections */}
       <div className="container mx-auto px-4 pb-16">
         {Object.entries(menuData).map(([sectionKey, items]) => (
-          <section 
+          <section
             key={sectionKey}
             className="mb-16 bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-xl"
           >
@@ -212,17 +243,17 @@ const updateQuantity = (id, change) => {
               {sectionNames[sectionKey]}
               <div className="w-24 h-1 mx-auto mt-4 rounded-full" style={{ backgroundColor: '#E35711' }}></div>
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {items.map((item) => (
-                <div 
-                  key={item.id} 
+                <div
+                  key={item.id}
                   className="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl border-2 border-transparent hover:border-orange-200"
                 >
                   {/* Food Image */}
                   <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={item.image} 
+                    <img
+                      src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                       onError={(e) => {
@@ -231,7 +262,7 @@ const updateQuantity = (id, change) => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2" style={{ color: '#333' }}>
@@ -281,141 +312,14 @@ const updateQuantity = (id, change) => {
             </div>
 
             {!isCheckout ? (
-              <>
-                {Object.keys(cart).length === 0 ? (
-                  <div className="text-center py-8">
-                    <div className="text-6xl mb-4">🛒</div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-600">Your cart is empty</h3>
-                    <p className="text-gray-500">Add some delicious items to get started!</p>
-                  </div>
-                ) : (
-                  <>
-                    <div className="space-y-4 mb-6">
-                      {Object.values(cart).map((item) => (
-                        <div key={item.id} className="bg-gray-50 rounded-xl p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-semibold text-gray-800">{item.name}</h4>
-                            <span className="font-bold" style={{ color: '#E35711' }}>
-                              ${(item.price * item.quantity).toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm text-gray-600">
-                              ${item.price.toFixed(2)} each
-                            </span>
-                            <div className="flex items-center space-x-3">
-                              <button
-                                onClick={() => updateQuantity(item.id, -1)}
-                                className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                                style={{ backgroundColor: '#E35711' }}
-                              >
-                                <Minus size={16} />
-                              </button>
-                              <span className="font-semibold min-w-[2rem] text-center">
-                                {item.quantity}
-                              </span>
-                              <button
-                                onClick={() => updateQuantity(item.id, 1)}
-                                className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                                style={{ backgroundColor: '#E35711' }}
-                              >
-                                <Plus size={16} />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
 
-                    <div className="border-t pt-4">
-                      <div className="text-center mb-4">
-                        <div className="text-2xl font-bold" style={{ color: '#E35711' }}>
-                          Total: ${getTotalPrice().toFixed(2)}
-                        </div>
-                      </div>
-                      <button
-                        onClick={handleCheckout}
-                        className="w-full py-4 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                        style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
-                      >
-                        Proceed to Checkout
-                      </button>
-                    </div>
-                  </>
-                )}
-              </>
+
+
+              <Checkout cart={cart} updateQuantity={updateQuantity} getTotalPrice={getTotalPrice} handleCheckout={handleCheckout} />
+
+
             ) : (
-              <div onSubmit={handleOrderSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={customerInfo.name}
-                    onChange={(e) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-                    placeholder="Enter your full name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={customerInfo.phone}
-                    onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
-                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Building Number
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={customerInfo.building}
-                    onChange={(e) => setCustomerInfo(prev => ({ ...prev, building: e.target.value }))}
-                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-                    placeholder="Enter building number"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700">
-                    Floor Number
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={customerInfo.floor}
-                    onChange={(e) => setCustomerInfo(prev => ({ ...prev, floor: e.target.value }))}
-                    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-                    placeholder="Enter floor number"
-                  />
-                </div>
-
-                <div className="border-t pt-4 mt-6">
-                  <div className="text-center mb-4">
-                    <div className="text-xl font-bold" style={{ color: '#E35711' }}>
-                      Order Total: ${getTotalPrice().toFixed(2)}
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleOrderSubmit}
-                    className="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                  >
-                    Place Order
-                  </button>
-                </div>
-              </div>
+              <CustomerInfoComponent isSubmitting={isSubmitting} getTotalPrice={getTotalPrice} setCustomerInfo={setCustomerInfo} customerInfo={customerInfo} />
             )}
           </div>
         </div>
