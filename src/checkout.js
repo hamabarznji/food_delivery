@@ -32,8 +32,7 @@ const Checkout = ({
           <div className="space-y-4 mb-6">
             {items.map((item) => {
               const lineTotal = (item.price || 0) * (item.quantity || 0);
-              const canDecrement = (item.quantity || 0) > 1;
-
+              const canDecrement = true
               return (
                 <div key={item.id} className="bg-gray-50 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-2">

@@ -77,7 +77,7 @@ const RestaurantApp = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [building, setBuilding] = useState('');
-  const [floor, setFloor] = useState('');
+  const [comment, setComment] = useState('');
 
   // --- derived: list of sections from data (always trust data keys)
   const sections = useMemo(() => Object.keys(menuData || {}), [menuData]);
@@ -198,7 +198,7 @@ const RestaurantApp = () => {
       name,
       phone,
       building,
-      floor,
+      comment,
       items: orderItems,
       total: getTotalPrice().toFixed(2),
     };
@@ -214,7 +214,7 @@ const RestaurantApp = () => {
     setName('');
     setPhone('');
     setBuilding('');
-    setFloor('');
+    setComment('');
     setIsSubmitting(false);
   };
 
@@ -432,11 +432,11 @@ const RestaurantApp = () => {
                 setName={setName}
                 setPhone={setPhone}
                 setBuilding={setBuilding}
-                setFloor={setFloor}
                 phone={phone}
                 name={name}
                 building={building}
-                floor={floor}
+                setComment={setComment}
+                comment={comment}
                 lang={lang}
               />
             </div>

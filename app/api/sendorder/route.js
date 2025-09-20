@@ -115,7 +115,7 @@ export async function POST(req) {
         orderDetails.building || "-"
       )}\n` +
       `💬 *${escapeMarkdown("تێبینی")}:* ${escapeMarkdown(
-        orderDetails.floor || "-"
+        orderDetails.comment || "-"
       )}\n\n` +
       `📋 *${escapeMarkdown("داواکارییەکان")}:*\n` +
       `${itemsBlock}\n\n` +
