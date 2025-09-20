@@ -62,7 +62,7 @@ const RestaurantApp = () => {
   const [activeSection, setActiveSection] = useState(null);
 
   // language
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('ku-sor');
   const menuData = lang === 'en' ? en : lang === 'ar' ? ar : krd;
   const sectionNames =
     lang === 'en' ? sectionNamesEnglish : lang === 'ar' ? sectionNamesArabic : sectionNamesKurdish;
@@ -70,7 +70,7 @@ const RestaurantApp = () => {
     lang === 'en'
       ? 'Welcome to Kebab Pasha'
       : lang === 'ar'
-      ? ' أهلاً بكم في كباب باشا!'
+      ? ' أهلاً بكم في كباب باشا'
       : ' بەخێربێیت بۆ کەباب پاشا';
 
   // customer info

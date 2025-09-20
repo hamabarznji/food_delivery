@@ -4,11 +4,13 @@ import { Languages } from 'lucide-react';
 const LanguageDropdown = ({ currentLang, setLang }) => {
   const [open, setOpen] = useState(false);
   const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'ar', label: 'العربية' },
     { code: 'krd', label: 'کوردی (سۆرانی)' },
+    { code: 'ar', label: 'العربية' },
+    { code: 'en', label: 'English' },
+
+
   ];
-const text= currentLang === 'en' ? "English" : currentLang === 'ar' ? "عربي" : "کوردی";
+  const text = currentLang === 'en' ? "English" : currentLang === 'ar' ? "عربي" : "کوردی";
   return (
     <div className="relative">
       <button
@@ -29,9 +31,8 @@ const text= currentLang === 'en' ? "English" : currentLang === 'ar' ? "عربي"
                 setLang(lang.code);
                 setOpen(false);
               }}
-              className={`w-full text-left px-4 py-2 hover:bg-orange-100 rounded-lg ${
-                currentLang === lang.code ? 'font-bold text-orange-600' : 'text-gray-700'
-              }`}
+              className={`w-full text-left px-4 py-2 hover:bg-orange-100 rounded-lg ${currentLang === lang.code ? 'font-bold text-orange-600' : 'text-gray-700'
+                }`}
             >
               {lang.label}
             </button>
