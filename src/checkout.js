@@ -5,17 +5,19 @@ const Checkout = ({
     cart,
     updateQuantity,
     getTotalPrice,
-    handleCheckout
+    handleCheckout,
+    lang
 
 
 }) => {
 
+  const t = translations[lang]; // get current language translations
 
     return <>{Object.keys(cart).length === 0 ? (
         <div className="text-center py-8">
             <div className="text-6xl mb-4">🛒</div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-600">Your cart is empty</h3>
-            <p className="text-gray-500">Add some delicious items to get started!</p>
+            <h3 className="text-xl font-semibold mb-2 text-gray-600">{t.empty}</h3>
+            {/* <p className="text-gray-500">Add some delicious items to get started!</p> */}
         </div>
     ) : (
         <>
@@ -30,7 +32,7 @@ const Checkout = ({
                         </div>
                         <div className="flex items-center justify-between">
                             <span className="text-sm text-gray-600">
-                                ${item.price.toFixed(2)} each
+                                ${item.price.toFixed(2)} {t.each}
                             </span>
                             <div className="flex items-center space-x-3">
                                 <button
@@ -59,7 +61,7 @@ const Checkout = ({
             <div className="border-t pt-4">
                 <div className="text-center mb-4">
                     <div className="text-2xl font-bold" style={{ color: '#E35711' }}>
-                        Total: ${getTotalPrice().toFixed(2)}
+                        {t.orderTotal}: ${getTotalPrice().toFixed(2)}
                     </div>
                 </div>
                 <button
@@ -67,7 +69,7 @@ const Checkout = ({
                     className="w-full py-4 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
                     style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
                 >
-                    Proceed to Checkout
+                   {t.checkout}
                 </button>
             </div>
         </>
@@ -76,3 +78,27 @@ const Checkout = ({
 }
 
 export default Checkout
+
+const translations = {
+  en: {
+    checkout: "Proceed to Checkout",
+    empty: "Your cart is empty",
+    each: "Each",
+    placeOrder: "Place Order",
+    orderTotal: "Order Total"
+  },
+  ar: {
+    checkout: "المتابعة إلى الدفع",
+    empty: "سلة التسوق فارغة",
+    each: "لكل واحدة",
+    placeOrder: "تأكيد الطلب",
+    orderTotal: "إجمالي الطلب"
+  },
+  krd: {
+    checkout: " تەواوکردنی داواکاری",
+    empty: "سەڵەکەت بەتاڵە",
+    each: "هەریەک",
+    placeOrder: "داواکاری بنێرە",
+    orderTotal: "کۆی گشتی",
+  }
+};

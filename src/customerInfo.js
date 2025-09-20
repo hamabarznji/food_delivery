@@ -1,6 +1,7 @@
+const translations = { en: { fullName: "Full Name", phoneNumber: "Phone Number", buildingNumber: "Building Number", floorNumber: "Floor Number", placeOrder: "Place Order", orderTotal: "Order Total" }, ar: { fullName: "الاسم الكامل", phoneNumber: "رقم الهاتف", buildingNumber: "رقم المبنى", floorNumber: "رقم الطابق", placeOrder: "تأكيد الطلب", orderTotal: "إجمالي الطلب" }, krd: { fullName: "ناوی تەواو", phoneNumber: "ژمارەی مۆبایل", buildingNumber: "ژمارەی باڵەخانە", floorNumber: "ژمارەی نهۆم", placeOrder: "داواکاری بنێرە", orderTotal: "کۆی گشتی داواکاری" } };
 const CustomerInfoComponent = ({
   onSubmit,
-    getTotalPrice,
+  getTotalPrice,
   isSubmitting,
   setName,
   setPhone,
@@ -9,13 +10,16 @@ const CustomerInfoComponent = ({
   phone,
   name,
   building,
-  floor
+  floor,
+  lang = 'en'
 }) => {
+  const t = translations[lang]; // get current language translations
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Full Name
+          {t.fullName}
         </label>
         <input
           type="text"
@@ -23,46 +27,41 @@ const CustomerInfoComponent = ({
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter your full name"
+          placeholder={t.fullName}
         />
       </div>
 
       <div>
-  <label className="block text-sm font-semibold mb-2 text-gray-700">
-    Phone Number
-  </label>
-  <input
-    type="tel"
-    required
-    value={phone}
-    onChange={(e) => {
-      // Remove all non-digit characters
-      let digits = e.target.value.replace(/\D/g, '');
+        <label className="block text-sm font-semibold mb-2 text-gray-700">
+          {t.phoneNumber}
+        </label>
+        <input
+          type="tel"
+          required
+          value={phone}
+          onChange={(e) => {
+            let digits = e.target.value.replace(/\D/g, '');
+            digits = digits.slice(0, 11);
 
-      // Limit to exactly 11 digits
-      digits = digits.slice(0, 11);
+            let formatted = '';
+            if (digits.length >= 1) formatted += digits.slice(0, 4);
+            if (digits.length >= 4) formatted += ' ' + digits.slice(4, 7);
+            if (digits.length >= 7) formatted += ' ' + digits.slice(7, 9);
+            if (digits.length >= 9) formatted += ' ' + digits.slice(9, 11);
 
-      // Format as 0XXX XXX XX XX
-      let formatted = '';
-      if (digits.length >= 1) formatted += digits.slice(0, 4); // 0XXX
-      if (digits.length >= 4) formatted += ' ' + digits.slice(4, 7); // XXX
-      if (digits.length >= 7) formatted += ' ' + digits.slice(7, 9); // XX
-      if (digits.length >= 9) formatted += ' ' + digits.slice(9, 11); // XX
-
-      setPhone(formatted.trim());
-    }}
-    pattern="0\d{3}\s\d{3}\s\d{2}\s\d{2}" // strict validation
-    maxLength={14} // 11 digits + 3 spaces
-    title="Phone number must be exactly 0XXX XXX XX XX"
-    placeholder="0XXX XXX XX XX"
-    className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-  />
-</div>
-
+            setPhone(formatted.trim());
+          }}
+          pattern="0\d{3}\s\d{3}\s\d{2}\s\d{2}"
+          maxLength={14}
+          title="Phone number must be exactly 0XXX XXX XX XX"
+          placeholder="0XXX XXX XX XX"
+          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
+        />
+      </div>
 
       <div>
         <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Building Number
+          {t.buildingNumber}
         </label>
         <input
           type="text"
@@ -70,13 +69,13 @@ const CustomerInfoComponent = ({
           value={building}
           onChange={(e) => setBuilding(e.target.value)}
           className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter building number"
+          placeholder={t.buildingNumber}
         />
       </div>
 
       <div>
         <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Floor Number
+          {t.floorNumber}
         </label>
         <input
           type="text"
@@ -84,22 +83,21 @@ const CustomerInfoComponent = ({
           value={floor}
           onChange={(e) => setFloor(e.target.value)}
           className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter floor number"
+          placeholder={t.floorNumber}
         />
       </div>
 
       <div className="border-t pt-4 mt-6">
         <div className="text-center mb-4">
           <div className="text-xl font-bold" style={{ color: '#E35711' }}>
-            Order Total: ${getTotalPrice().toFixed(2)}
+            {t.orderTotal}: ${getTotalPrice().toFixed(2)}
           </div>
         </div>
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${
-            isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          className={`w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
         >
           {isSubmitting ? (
             <div className="flex items-center justify-center space-x-2">
@@ -107,7 +105,7 @@ const CustomerInfoComponent = ({
               <span>Placing Order...</span>
             </div>
           ) : (
-            'Place Order'
+            t.placeOrder
           )}
         </button>
       </div>

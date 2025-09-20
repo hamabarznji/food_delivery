@@ -1,35 +1,153 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Plus, Minus, X, Menu as MenuIcon } from 'lucide-react';
-import menuData from '@/public/menu';
-import CustomerInfoComponent from '@/src/customerInfo'
-import HeroComponent from '@/src/HeroSection'
-import Checkout from '@/src/checkout'
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ShoppingCart, Plus, X, Menu as MenuIcon } from 'lucide-react';
+
+// data bundles
+import ar from '@/public/ar';
+import en from '@/public/en';
+import krd from '@/public/ku-sor';
+
+// sections
+import CustomerInfoComponent from '@/src/customerInfo';
+import HeroComponent from '@/src/HeroSection';
+import Checkout from '@/src/checkout';
+import LanguageDropdown from '@/src/lang';
+
+// ---- Section labels (keep keys consistent: mains, bbq, drinks, shawrma, desserts, sandwiches, etc.)
+const sectionNamesEnglish = {
+  shawrma: 'Shawrma',
+  mains: 'Main Courses',
+  desserts: 'Desserts',
+  drinks: 'Drinks',
+  bbq: 'BBQ',
+  sandwiches: 'Sandwiches',
+};
+
+const sectionNamesKurdish = {
+  mains: 'کۆرسە سەرەکیەکان',
+  drinks: 'خواردنەوەکان',
+  bbq: 'برژاو',
+  shawrma: 'شاورمە',
+  desserts: 'شیرینی',
+  sandwiches: 'ساندوێچ',
+};
+
+const sectionNamesArabic = {
+  mains: 'الأطباق الرئيسية',
+  bbq: 'الشواء',
+  drinks: 'مشروبات',
+  shawrma: 'شاورما',
+  desserts: 'حلويات',
+  sandwiches: 'ساندوتشات',
+};
+
+function titleCase(key) {
+  return key.replace(/[-_]/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
+}
+
+function slugify(s) {
+  return String(s).toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+}
+
 const RestaurantApp = () => {
+  // cart / checkout
   const [cart, setCart] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('appetizers');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // UI state
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState(null);
+
+  // language
+  const [lang, setLang] = useState('en');
+  const menuData = lang === 'en' ? en : lang === 'ar' ? ar : krd;
+  const sectionNames =
+    lang === 'en' ? sectionNamesEnglish : lang === 'ar' ? sectionNamesArabic : sectionNamesKurdish;
+  const text =
+    lang === 'en'
+      ? 'Welcome to Kebab Pasha'
+      : lang === 'ar'
+      ? ' أهلاً بكم في كباب باشا!'
+      : ' بەخێربێیت بۆ کەباب پاشا';
+
+  // customer info
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [building, setBuilding] = useState('');
   const [floor, setFloor] = useState('');
 
+  // --- derived: list of sections from data (always trust data keys)
+  const sections = useMemo(() => Object.keys(menuData || {}), [menuData]);
 
+  // map of section ids -> ref
+  const sectionRefs = useRef({});
+  sections.forEach((key) => {
+    const id = `sec-${slugify(key)}`;
+    if (!sectionRefs.current[id]) sectionRefs.current[id] = React.createRef();
+  });
 
+  // ensure an initial active section
+  useEffect(() => {
+    if (sections.length && !activeSection) setActiveSection(sections[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sections]);
+
+  // ----- Smooth scroll with sticky header offset
+  const scrollToSection = (sectionKey) => {
+    const id = `sec-${slugify(sectionKey)}`;
+    const node = sectionRefs.current[id]?.current;
+    if (!node) return;
+
+    const header = document.getElementById('kp-header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+    const y = node.getBoundingClientRect().top + window.pageYOffset - (headerHeight + 12);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+
+    setActiveSection(sectionKey);
+    setIsMobileMenuOpen(false);
+  };
+
+  // ----- ScrollSpy (highlights active tab while scrolling)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // choose the entry most in-view near the top
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+
+        if (visible?.target?.id) {
+          const key = visible.target.getAttribute('data-key');
+          if (key && key !== activeSection) setActiveSection(key);
+        }
+      },
+      {
+        rootMargin: '-64px 0px -70% 0px', // bias to the section near the top under sticky header
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    sections.forEach((k) => {
+      const id = `sec-${slugify(k)}`;
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [sections, activeSection]);
+
+  // --- API
   const sendToTelegram = async (orderDetails) => {
-    console.log({ orderDetails })
     try {
       const res = await fetch('/api/sendorder', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderDetails }),
       });
-
       const data = await res.json();
       return data.success;
     } catch (err) {
@@ -38,35 +156,30 @@ const RestaurantApp = () => {
     }
   };
 
+  // --- cart ops
+  const addToCart = (item) =>
+    setCart((prev) => {
+      const existing = prev[item.id];
+      return {
+        ...prev,
+        [item.id]: existing ? { ...existing, quantity: existing.quantity + 1 } : { ...item, quantity: 1 },
+      };
+    });
 
-  const sectionNames = {
-    appetizers: 'Appetizers',
-    mains: 'Main Courses',
-    desserts: 'Desserts',
-    beverages: 'Beverages',
-  };
+  const updateQuantity = (id, change) =>
+    setCart((prev) => {
+      const existing = prev[id];
+      if (!existing) return prev;
+      const newQty = existing.quantity + change;
+      if (newQty <= 0) {
+        const { [id]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [id]: { ...existing, quantity: newQty } };
+    });
 
-  const addToCart = (item) => setCart(prev => {
-    const existing = prev[item.id];
-    return {
-      ...prev,
-      [item.id]: existing ? { ...existing, quantity: existing.quantity + 1 } : { ...item, quantity: 1 }
-    };
-  });
-
-  const updateQuantity = (id, change) => setCart(prev => {
-    const existing = prev[id];
-    if (!existing) return prev;
-    const newQty = existing.quantity + change;
-    if (newQty <= 0) {
-      const { [id]: _, ...rest } = prev;
-      return rest;
-    }
-    return { ...prev, [id]: { ...existing, quantity: newQty } };
-  });
-
-  const getTotalItems = () => Object.values(cart).reduce((total, item) => total + item.quantity, 0);
-  const getTotalPrice = () => Object.values(cart).reduce((total, item) => total + item.price * item.quantity, 0);
+  const getTotalItems = () => Object.values(cart).reduce((t, i) => t + i.quantity, 0);
+  const getTotalPrice = () => Object.values(cart).reduce((t, i) => t + i.price * i.quantity, 0);
   const handleCheckout = () => setIsCheckout(true);
 
   const handleOrderSubmit = async (e) => {
@@ -77,8 +190,18 @@ const RestaurantApp = () => {
     }
     setIsSubmitting(true);
 
-    const orderItems = Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join('\n');
-    const orderDetails = { name, phone, building, floor, items: orderItems, total: getTotalPrice().toFixed(2) };
+    const orderItems = Object.values(cart)
+      .map((item) => `• ${item.name} x${item.quantity} - ${(item.price * item.quantity).toFixed(2)}`)
+      .join('\n');
+
+    const orderDetails = {
+      name,
+      phone,
+      building,
+      floor,
+      items: orderItems,
+      total: getTotalPrice().toFixed(2),
+    };
 
     const success = await sendToTelegram(orderDetails);
 
@@ -88,7 +211,6 @@ const RestaurantApp = () => {
     setCart({});
     setIsCartOpen(false);
     setIsCheckout(false);
-    //setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
     setName('');
     setPhone('');
     setBuilding('');
@@ -96,20 +218,14 @@ const RestaurantApp = () => {
     setIsSubmitting(false);
   };
 
-  const scrollToSection = (section) => {
-    setActiveSection(section);
-    setIsMobileMenuOpen(false);
-  };
-
-
-
-
-
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#E6E7B2', color: '#E35711' }}>
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-lg">
-        <div className="container mx-auto px-4 py-4">
+      <header
+        id="kp-header"
+        className="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-lg border-b border-orange-100"
+      >
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="text-2xl md:text-3xl font-bold" style={{ color: '#E35711' }}>
@@ -117,44 +233,36 @@ const RestaurantApp = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-6">
-              {Object.keys(sectionNames).map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${activeSection === section
-                    ? 'text-white shadow-lg'
-                    : 'text-gray-600 hover:text-white'
-                    }`}
-                  style={{
-                    backgroundColor: activeSection === section ? '#E35711' : 'transparent',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (activeSection !== section) {
-                      e.target.style.backgroundColor = '#E35711';
-                      e.target.style.color = 'white';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (activeSection !== section) {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = '#666';
-                    }
-                  }}
-                >
-                  {sectionNames[section]}
-                </button>
-              ))}
+            <nav className="hidden md:flex gap-2">
+              {sections.map((section) => {
+                const isActive = activeSection === section;
+                return (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={[
+                      'px-4 py-2 rounded-full transition-all duration-200',
+                      'hover:scale-105',
+                      isActive
+                        ? 'bg-orange-600 text-white shadow-lg'
+                        : 'bg-transparent text-gray-700 hover:bg-orange-600 hover:text-white',
+                    ].join(' ')}
+                  >
+                    {sectionNames[section] || titleCase(section)}
+                  </button>
+                );
+              })}
             </nav>
 
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-3">
               {/* Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative px-4 py-2 text-white rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="relative px-4 py-2 text-white rounded-full transition-all duration-200 hover:scale-105 shadow-lg"
                 style={{ backgroundColor: '#E35711' }}
+                aria-label="Open cart"
               >
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-2">
                   <ShoppingCart size={20} />
                   <span className="hidden sm:inline">Cart</span>
                 </div>
@@ -165,11 +273,14 @@ const RestaurantApp = () => {
                 )}
               </button>
 
+              <LanguageDropdown currentLang={lang} setLang={setLang} />
+
               {/* Mobile Menu Button */}
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => setIsMobileMenuOpen((s) => !s)}
                 className="md:hidden p-2 text-white rounded-full"
                 style={{ backgroundColor: '#E35711' }}
+                aria-label="Toggle menu"
               >
                 <MenuIcon size={20} />
               </button>
@@ -178,88 +289,108 @@ const RestaurantApp = () => {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <nav className="md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
+            <nav className="md:hidden mt-3 bg-white rounded-lg shadow-lg p-3 border border-orange-100">
               <div className="grid grid-cols-2 gap-2">
-                {Object.keys(sectionNames).map((section) => (
-                  <button
-                    key={section}
-                    onClick={() => scrollToSection(section)}
-                    className={`p-3 rounded-lg text-center transition-all duration-300 ${activeSection === section ? 'text-white' : 'text-gray-600'
-                      }`}
-                    style={{
-                      backgroundColor: activeSection === section ? '#E35711' : '#f3f4f6'
-                    }}
-                  >
-                    {sectionNames[section]}
-                  </button>
-                ))}
+                {sections.map((section) => {
+                  const isActive = activeSection === section;
+                  return (
+                    <button
+                      key={section}
+                      onClick={() => scrollToSection(section)}
+                      className={[
+                        'p-3 rounded-lg text-center transition-all duration-200',
+                        isActive ? 'bg-orange-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-orange-600 hover:text-white',
+                      ].join(' ')}
+                    >
+                      {sectionNames[section] || titleCase(section)}
+                    </button>
+                  );
+                })}
               </div>
             </nav>
           )}
         </div>
       </header>
 
-      {/* Hero Section */}
-      <HeroComponent />
+      {/* Hero */}
+      <HeroComponent text={text} />
 
       {/* Menu Sections */}
       <div className="container mx-auto px-4 pb-16">
-        {Object.entries(menuData).map(([sectionKey, items]) => (
-          <section
-            key={sectionKey}
-            className="mb-16 bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-xl"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" style={{ color: '#E35711' }}>
-              {sectionNames[sectionKey]}
-              <div className="w-24 h-1 mx-auto mt-4 rounded-full" style={{ backgroundColor: '#E35711' }}></div>
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {items.map((item) => (
+        {sections.map((sectionKey) => {
+          const id = `sec-${slugify(sectionKey)}`;
+          const items = menuData[sectionKey] || [];
+          return (
+            <section
+              key={sectionKey}
+              id={id}
+              data-key={sectionKey}
+              ref={sectionRefs.current[`sec-${slugify(sectionKey)}`]}
+              className="mb-16 bg-white/80 backdrop-blur-sm rounded-3xl p-6 md:p-8 shadow-xl border border-orange-100"
+            >
+              <h2
+                className="text-3xl md:text-4xl font-bold text-center mb-8"
+                style={{ color: '#E35711' }}
+              >
+                {sectionNames[sectionKey] || titleCase(sectionKey)}
                 <div
-                  key={item.id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl border-2 border-transparent hover:border-orange-200"
-                >
-                  {/* Food Image */}
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                      onError={(e) => {
-                        e.target.src = `https://via.placeholder.com/400x300/E6E7B2/E35711?text=${encodeURIComponent(item.name)}`;
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  </div>
+                  className="w-24 h-1 mx-auto mt-4 rounded-full"
+                  style={{ backgroundColor: '#E35711' }}
+                />
+              </h2>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2" style={{ color: '#333' }}>
-                      {item.name}
-                    </h3>
-                    <p className="text-gray-600 mb-4 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold" style={{ color: '#E35711' }}>
-                        ${item.price.toFixed(2)}
-                      </span>
-                      <button
-                        onClick={() => addToCart(item)}
-                        className="px-4 py-2 bg-gradient-to-r text-white rounded-xl transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg flex items-center space-x-1"
-                        style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
-                      >
-                        <Plus size={16} />
-                        <span className="text-sm font-medium">Add</span>
-                      </button>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl border-2 border-transparent hover:border-orange-200"
+                  >
+                    {/* Food Image */}
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover transition-transform duration-200 hover:scale-110"
+                        onError={(e) => {
+                          e.target.src = `https://via.placeholder.com/400x300/E6E7B2/E35711?text=${encodeURIComponent(
+                            item.name || 'Item'
+                          )}`;
+                        }}
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold mb-2 text-gray-900">{item.name}</h3>
+                      <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-2xl font-bold" style={{ color: '#E35711' }}>
+                          {Number(item.price || 0).toLocaleString(undefined, {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2,
+                          })}{' '}
+                          IQD
+                        </span>
+                        <button
+                          onClick={() => addToCart(item)}
+                          className="px-4 py-2 text-white rounded-xl transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg flex items-center gap-1"
+                          style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
+                        >
+                          <Plus size={16} />
+                          <span className="text-sm font-medium">Add</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       {/* Cart Modal */}
@@ -268,7 +399,7 @@ const RestaurantApp = () => {
           <div className="bg-white rounded-3xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold" style={{ color: '#E35711' }}>
-                {isCheckout ? 'Customer Information' : 'Your Cart'}
+                {/* Title is handled within children if needed */}
               </h2>
               <button
                 onClick={() => {
@@ -276,6 +407,7 @@ const RestaurantApp = () => {
                   setIsCheckout(false);
                 }}
                 className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+                aria-label="Close cart"
               >
                 <X size={24} />
               </button>
@@ -288,6 +420,7 @@ const RestaurantApp = () => {
                 updateQuantity={updateQuantity}
                 getTotalPrice={getTotalPrice}
                 handleCheckout={handleCheckout}
+                lang={lang}
               />
             </div>
 
@@ -295,7 +428,6 @@ const RestaurantApp = () => {
               <CustomerInfoComponent
                 isSubmitting={isSubmitting}
                 getTotalPrice={getTotalPrice}
-
                 onSubmit={handleOrderSubmit}
                 setName={setName}
                 setPhone={setPhone}
@@ -305,17 +437,14 @@ const RestaurantApp = () => {
                 name={name}
                 building={building}
                 floor={floor}
-
+                lang={lang}
               />
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };
 
 export default RestaurantApp;
-
-
