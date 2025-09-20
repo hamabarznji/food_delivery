@@ -184,7 +184,7 @@ const RestaurantApp = () => {
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !phone || !building || !floor) {
+    if (!name || !phone || !building ) {
       alert('Please fill in all fields');
       return;
     }

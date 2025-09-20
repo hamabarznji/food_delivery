@@ -114,7 +114,7 @@ export async function POST(req) {
       `🏢 *${escapeMarkdown("باڵەخانە")}:* ${escapeMarkdown(
         orderDetails.building || "-"
       )}\n` +
-      `🏠 *${escapeMarkdown("نهۆم")}:* ${escapeMarkdown(
+      `💬 *${escapeMarkdown("تێبینی")}:* ${escapeMarkdown(
         orderDetails.floor || "-"
       )}\n\n` +
       `📋 *${escapeMarkdown("داواکارییەکان")}:*\n` +
