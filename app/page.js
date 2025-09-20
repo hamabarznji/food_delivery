@@ -205,8 +205,8 @@ const RestaurantApp = () => {
 
     const success = await sendToTelegram(orderDetails);
 
-    if (success) alert('Order sent successfully!');
-    else alert('Order placed, but Telegram notification failed.');
+    if (success) console.log('Order sent successfully!');
+    else console.log('Order placed, but Telegram notification failed.');
 
     setCart({});
     setIsCartOpen(false);
