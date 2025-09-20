@@ -1,12 +1,12 @@
 import React from 'react';
-import {  Plus, Minus, Menu as MenuIcon } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 
 const Checkout = ({
     cart,
     updateQuantity,
     getTotalPrice,
     handleCheckout
-    
+
 
 }) => {
 

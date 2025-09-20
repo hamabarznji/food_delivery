@@ -3,33 +3,40 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, X, Menu as MenuIcon } from 'lucide-react';
 import menuData from '@/public/menu';
-
+import CustomerInfoComponent from '@/src/customerInfo'
+import HeroComponent from '@/src/HeroSection'
+import Checkout from '@/src/checkout'
 const RestaurantApp = () => {
-   const [cart, setCart] = useState({});
+  const [cart, setCart] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('appetizers');
-  const [customerInfo, setCustomerInfo] = useState({ name: '', phone: '', building: '', floor: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-const sendToTelegram = async (orderDetails) => {
-  try {
-    const res = await fetch('/api/sendorder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderDetails }),
-    });
-
-    const data = await res.json();
-    return data.success;
-  } catch (err) {
-    console.error('Error sending to Telegram:', err);
-    return false;
-  }
-};
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [building, setBuilding] = useState('');
+  const [floor, setFloor] = useState('');
 
 
+
+  const sendToTelegram = async (orderDetails) => {
+    console.log({ orderDetails })
+    try {
+      const res = await fetch('/api/sendorder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderDetails }),
+      });
+
+      const data = await res.json();
+      return data.success;
+    } catch (err) {
+      console.error('Error sending to Telegram:', err);
+      return false;
+    }
+  };
 
 
   const sectionNames = {
@@ -64,14 +71,14 @@ const sendToTelegram = async (orderDetails) => {
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
-    if (!customerInfo.name || !customerInfo.phone || !customerInfo.building || !customerInfo.floor) {
+    if (!name || !phone || !building || !floor) {
       alert('Please fill in all fields');
       return;
     }
     setIsSubmitting(true);
 
-    const orderItems = Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price*item.quantity).toFixed(2)}`).join('\n');
-    const orderDetails = { ...customerInfo, items: orderItems, total: getTotalPrice().toFixed(2) };
+    const orderItems = Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`).join('\n');
+    const orderDetails = { name, phone, building, floor, items: orderItems, total: getTotalPrice().toFixed(2) };
 
     const success = await sendToTelegram(orderDetails);
 
@@ -81,7 +88,11 @@ const sendToTelegram = async (orderDetails) => {
     setCart({});
     setIsCartOpen(false);
     setIsCheckout(false);
-    setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
+    //setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
+    setName('');
+    setPhone('');
+    setBuilding('');
+    setFloor('');
     setIsSubmitting(false);
   };
 
@@ -90,170 +101,9 @@ const sendToTelegram = async (orderDetails) => {
     setIsMobileMenuOpen(false);
   };
 
-  // Hero Component
-  const Hero = () => (
-    <div className="container mx-auto px-4 py-8 md:py-16">
-      <div className="text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-16 shadow-xl">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4" style={{ color: '#E35711' }}>
-          Welcome to Kebab Pasha
-        </h1>
-        <p className="text-lg md:text-xl text-gray-600">
-          Experience authentic Middle Eastern flavors crafted with love and tradition
-        </p>
-      </div>
-    </div>
-  );
 
-  // Checkout Component
-  const Checkout = ({ cart, updateQuantity, getTotalPrice, handleCheckout }) => (
-    <>
-      {Object.keys(cart).length === 0 ? (
-        <div className="text-center py-8">
-          <div className="text-6xl mb-4">🛒</div>
-          <h3 className="text-xl font-semibold mb-2 text-gray-600">Your cart is empty</h3>
-          <p className="text-gray-500">Add some delicious items to get started!</p>
-        </div>
-      ) : (
-        <>
-          <div className="space-y-4 mb-6">
-            {Object.values(cart).map((item) => (
-              <div key={item.id} className="bg-gray-50 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-gray-800">{item.name}</h4>
-                  <span className="font-bold" style={{ color: '#E35711' }}>
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">
-                    ${item.price.toFixed(2)} each
-                  </span>
-                  <div className="flex items-center space-x-3">
-                    <button
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                      style={{ backgroundColor: '#E35711' }}
-                    >
-                      <Minus size={16} />
-                    </button>
-                    <span className="font-semibold min-w-[2rem] text-center">
-                      {item.quantity}
-                    </span>
-                    <button
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
-                      style={{ backgroundColor: '#E35711' }}
-                    >
-                      <Plus size={16} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
 
-          <div className="border-t pt-4">
-            <div className="text-center mb-4">
-              <div className="text-2xl font-bold" style={{ color: '#E35711' }}>
-                Total: ${getTotalPrice().toFixed(2)}
-              </div>
-            </div>
-            <button
-              onClick={handleCheckout}
-              className="w-full py-4 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-              style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
-            >
-              Proceed to Checkout
-            </button>
-          </div>
-        </>
-      )}
-    </>
-  );
 
-  // Customer Info Component
-  const CustomerInfoComponent = ({ isSubmitting, getTotalPrice, setCustomerInfo, customerInfo, onSubmit }) => (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Full Name
-        </label>
-        <input
-          type="text"
-          required
-          value={customerInfo.name}
-          onChange={(e) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
-          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter your full name"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Phone Number
-        </label>
-        <input
-          type="tel"
-          required
-          value={customerInfo.phone}
-          onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
-          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter your phone number"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Building Number
-        </label>
-        <input
-          type="text"
-          required
-          value={customerInfo.building}
-          onChange={(e) => setCustomerInfo(prev => ({ ...prev, building: e.target.value }))}
-          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter building number"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-semibold mb-2 text-gray-700">
-          Floor Number
-        </label>
-        <input
-          type="text"
-          required
-          value={customerInfo.floor}
-          onChange={(e) => setCustomerInfo(prev => ({ ...prev, floor: e.target.value }))}
-          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
-          placeholder="Enter floor number"
-        />
-      </div>
-
-      <div className="border-t pt-4 mt-6">
-        <div className="text-center mb-4">
-          <div className="text-xl font-bold" style={{ color: '#E35711' }}>
-            Order Total: ${getTotalPrice().toFixed(2)}
-          </div>
-        </div>
-        <button
-          onClick={onSubmit}
-          disabled={isSubmitting}
-          className={`w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-        >
-          {isSubmitting ? (
-            <div className="flex items-center justify-center space-x-2">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-              <span>Placing Order...</span>
-            </div>
-          ) : (
-            'Place Order'
-          )}
-        </button>
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#E6E7B2', color: '#E35711' }}>
@@ -273,8 +123,8 @@ const sendToTelegram = async (orderDetails) => {
                   key={section}
                   onClick={() => scrollToSection(section)}
                   className={`px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${activeSection === section
-                      ? 'text-white shadow-lg'
-                      : 'text-gray-600 hover:text-white'
+                    ? 'text-white shadow-lg'
+                    : 'text-gray-600 hover:text-white'
                     }`}
                   style={{
                     backgroundColor: activeSection === section ? '#E35711' : 'transparent',
@@ -350,7 +200,7 @@ const sendToTelegram = async (orderDetails) => {
       </header>
 
       {/* Hero Section */}
-      <Hero />
+      <HeroComponent />
 
       {/* Menu Sections */}
       <div className="container mx-auto px-4 pb-16">
@@ -431,25 +281,37 @@ const sendToTelegram = async (orderDetails) => {
               </button>
             </div>
 
-            {!isCheckout ? (
+            {/* Keep both mounted, only toggle visibility */}
+            <div style={{ display: isCheckout ? 'none' : 'block' }}>
               <Checkout
                 cart={cart}
                 updateQuantity={updateQuantity}
                 getTotalPrice={getTotalPrice}
                 handleCheckout={handleCheckout}
               />
-            ) : (
+            </div>
+
+            <div style={{ display: isCheckout ? 'block' : 'none' }}>
               <CustomerInfoComponent
                 isSubmitting={isSubmitting}
                 getTotalPrice={getTotalPrice}
-                setCustomerInfo={setCustomerInfo}
-                customerInfo={customerInfo}
+
                 onSubmit={handleOrderSubmit}
+                setName={setName}
+                setPhone={setPhone}
+                setBuilding={setBuilding}
+                setFloor={setFloor}
+                phone={phone}
+                name={name}
+                building={building}
+                floor={floor}
+
               />
-            )}
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };
