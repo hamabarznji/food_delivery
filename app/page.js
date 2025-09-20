@@ -5,168 +5,81 @@ import { ShoppingCart, Plus, Minus, X, Menu as MenuIcon } from 'lucide-react';
 import menuData from '@/public/menu';
 
 const RestaurantApp = () => {
-  const [cart, setCart] = useState({});
+   const [cart, setCart] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckout, setIsCheckout] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('appetizers');
-  const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    phone: '',
-    building: '',
-    floor: ''
-  });
+  const [customerInfo, setCustomerInfo] = useState({ name: '', phone: '', building: '', floor: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
-  const TELEGRAM_CHAT_ID = [
-    process.env.id1,
-    process.env.id2
-  ];
-
-
-  const sendToTelegram = async (orderDetails) => {
-    try {
-      const message = `🍽️ *ئۆردەری نوێ*\n\n` +
-        `👤 *ناو:* ${orderDetails.customerName}\n` +
-        `📱 *ژمارەی مۆبایل:* ${orderDetails.phone}\n` +
-        `🏢 *باڵەخانە:* ${orderDetails.building}\n` +
-        `🏠 *نهۆم:* ${orderDetails.floor}\n\n` +
-        `📋 *داواکارییەکان:*\n${orderDetails.items}\n\n` +
-        `💰 *کۆی گشتی:* $${orderDetails.total}\n\n` +
-        `⏰ *کاتی ئۆردەر:* ${new Date().toLocaleString()}`;
-
-      // Loop through each chat_id
-      for (const chatId of TELEGRAM_CHAT_ID) {
-        const response = await fetch(
-          `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: message,
-              parse_mode: 'Markdown',
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to send to chat_id: ${chatId}`);
-        }
-      }
-
-      return true;
-    } catch (error) {
-      console.error('Error sending to Telegram:', error);
-      return false;
-    }
-  };
-
+const sendToTelegram = async (orderDetails) => {
+  try {
+    const res = await fetch('/api/sendorder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderDetails),
+    });
+    const data = await res.json();
+    return data.ok;
+  } catch (err) {
+    console.error('Error sending to Telegram:', err);
+    return false;
+  }
+};
 
 
   const sectionNames = {
     appetizers: 'Appetizers',
     mains: 'Main Courses',
     desserts: 'Desserts',
-    beverages: 'Beverages'
+    beverages: 'Beverages',
   };
 
-  const addToCart = (item) => {
-    setCart(prev => {
-      const existing = prev[item.id];
-      return {
-        ...prev,
-        [item.id]: existing
-          ? { ...existing, quantity: existing.quantity + 1 }
-          : { ...item, quantity: 1 }
-      };
-    });
-  };
+  const addToCart = (item) => setCart(prev => {
+    const existing = prev[item.id];
+    return {
+      ...prev,
+      [item.id]: existing ? { ...existing, quantity: existing.quantity + 1 } : { ...item, quantity: 1 }
+    };
+  });
 
-  const updateQuantity = (id, change) => {
-    setCart(prev => {
-      const existing = prev[id];
-      if (!existing) return prev;
+  const updateQuantity = (id, change) => setCart(prev => {
+    const existing = prev[id];
+    if (!existing) return prev;
+    const newQty = existing.quantity + change;
+    if (newQty <= 0) {
+      const { [id]: _, ...rest } = prev;
+      return rest;
+    }
+    return { ...prev, [id]: { ...existing, quantity: newQty } };
+  });
 
-      const newQty = existing.quantity + change;
-      if (newQty <= 0) {
-        const { [id]: _, ...rest } = prev;
-        return rest;
-      }
-
-      return {
-        ...prev,
-        [id]: { ...existing, quantity: newQty }
-      };
-    });
-  };
-
-  const getTotalItems = () => {
-    return Object.values(cart).reduce((total, item) => total + item.quantity, 0);
-  };
-
-  const getTotalPrice = () => {
-    return Object.values(cart).reduce((total, item) => total + (item.price * item.quantity), 0);
-  };
-
-  const handleCheckout = () => {
-    setIsCheckout(true);
-  };
+  const getTotalItems = () => Object.values(cart).reduce((total, item) => total + item.quantity, 0);
+  const getTotalPrice = () => Object.values(cart).reduce((total, item) => total + item.price * item.quantity, 0);
+  const handleCheckout = () => setIsCheckout(true);
 
   const handleOrderSubmit = async (e) => {
-
-    e.preventDefault(); // 
-    // Basic validation
+    e.preventDefault();
     if (!customerInfo.name || !customerInfo.phone || !customerInfo.building || !customerInfo.floor) {
       alert('Please fill in all fields');
       return;
     }
-
     setIsSubmitting(true);
 
-    try {
-      const total = getTotalPrice();
+    const orderItems = Object.values(cart).map(item => `• ${item.name} x${item.quantity} - $${(item.price*item.quantity).toFixed(2)}`).join('\n');
+    const orderDetails = { ...customerInfo, items: orderItems, total: getTotalPrice().toFixed(2) };
 
-      // Prepare order details FIRST (while cart still has data)
-      const orderItems = Object.values(cart).map(item =>
-        `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
-      ).join('\n');
+    const success = await sendToTelegram(orderDetails);
 
-      const orderDetails = {
-        customerName: customerInfo.name,
-        phone: customerInfo.phone,
-        building: customerInfo.building,
-        floor: customerInfo.floor,
-        items: orderItems,
-        total: total.toFixed(2)
-      };
+    if (success) alert('Order sent successfully!');
+    else alert('Order placed, but Telegram notification failed.');
 
-      // Send to Telegram WITH DATA
-      const telegramSent = await sendToTelegram(orderDetails);
-
-      // Show different messages based on success/failure
-      if (telegramSent) {
-        alert(`Order sent successfully to Kebab Pasha!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: $${total.toFixed(2)}\n\nThank you for your order! We'll contact you soon.`);
-      } else {
-        alert(`Order placed successfully!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: $${total.toFixed(2)}\n\nNote: There was an issue sending to our system, but your order has been recorded.`);
-      }
-
-      // Clear cart AFTER sending
-      setCart({});
-      setIsCartOpen(false);
-      setIsCheckout(false);
-      setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
-
-    } catch (error) {
-      alert('There was an error processing your order. Please try again.');
-      console.error('Order submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setCart({});
+    setIsCartOpen(false);
+    setIsCheckout(false);
+    setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
+    setIsSubmitting(false);
   };
 
   const scrollToSection = (section) => {
@@ -539,3 +452,5 @@ const RestaurantApp = () => {
 };
 
 export default RestaurantApp;
+
+
