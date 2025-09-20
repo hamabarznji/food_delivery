@@ -1,19 +1,18 @@
-import { NextResponse } from 'next/server';
-
 export async function POST(req) {
   try {
-    const orderDetails = await req.json();
-    const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-    const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID
+    const { orderDetails } = await req.json();
 
-    const message = `🍽️ *ئۆردەری نوێ*\n\n` +
-      `👤 *ناو:* ${orderDetails.customerName}\n` +
-      `📱 *ژمارەی مۆبایل:* ${orderDetails.phone}\n` +
-      `🏢 *باڵەخانە:* ${orderDetails.building}\n` +
-      `🏠 *نهۆم:* ${orderDetails.floor}\n\n` +
-      `📋 *داواکارییەکان:*\n${orderDetails.items}\n\n` +
-      `💰 *کۆی گشتی:* $${orderDetails.total}\n\n` +
-      `⏰ *کاتی ئۆردەر:* ${new Date().toLocaleString()}`;
+    const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+    const TELEGRAM_CHAT_ID = [process.env.id1, process.env.id2];
+
+    const message = `🍽️ *New Order*\n\n` +
+      `👤 Name: ${orderDetails.customerName}\n` +
+      `📱 Phone: ${orderDetails.phone}\n` +
+      `🏢 Building: ${orderDetails.building}\n` +
+      `🏠 Floor: ${orderDetails.floor}\n\n` +
+      `📋 Items:\n${orderDetails.items}\n\n` +
+      `💰 Total: $${orderDetails.total}\n\n` +
+      `⏰ Time: ${new Date().toLocaleString()}`;
 
     for (const chatId of TELEGRAM_CHAT_ID) {
       const res = await fetch(
@@ -21,22 +20,20 @@ export async function POST(req) {
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: 'Markdown',
-          }),
+          body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'Markdown' }),
         }
       );
 
       if (!res.ok) {
-        throw new Error(`Failed to send to chat_id: ${chatId}`);
+        const text = await res.text();
+        throw new Error(`Telegram error: ${text}`);
       }
     }
 
-    return NextResponse.json({ ok: true });
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+
   } catch (err) {
-    console.error('Telegram API error:', err);
-    return NextResponse.json({ ok: false, error: err.message });
+    console.error(err);
+    return new Response(JSON.stringify({ success: false, error: err.message }), { status: 500 });
   }
 }

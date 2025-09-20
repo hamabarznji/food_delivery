@@ -18,15 +18,18 @@ const sendToTelegram = async (orderDetails) => {
     const res = await fetch('/api/sendorder', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(orderDetails),
+      body: JSON.stringify({ orderDetails }),
     });
+
     const data = await res.json();
-    return data.ok;
+    return data.success;
   } catch (err) {
     console.error('Error sending to Telegram:', err);
     return false;
   }
 };
+
+
 
 
   const sectionNames = {
