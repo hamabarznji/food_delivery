@@ -142,7 +142,7 @@ const RestaurantApp = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="text-2xl md:text-3xl font-bold" style={{ color: '#E35711' }}>
-              Delicious Bites
+              Kebab Pasha
             </div>
 
             {/* Desktop Navigation */}
