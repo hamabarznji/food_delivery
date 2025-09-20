@@ -17,7 +17,7 @@ import LanguageDropdown from '@/src/lang';
 // ---- Section labels (keep keys consistent: mains, bbq, drinks, shawrma, desserts, sandwiches, etc.)
 const sectionNamesEnglish = {
   shawrma: 'Shawrma',
-  mains: 'Main Courses',
+  main: 'Main Courses',
   desserts: 'Desserts',
   drinks: 'Drinks',
   bbq: 'BBQ',
@@ -25,7 +25,7 @@ const sectionNamesEnglish = {
 };
 
 const sectionNamesKurdish = {
-  mains: 'کۆرسە سەرەکیەکان',
+  main: 'کۆرسە سەرەکیەکان',
   drinks: 'خواردنەوەکان',
   bbq: 'برژاو',
   shawrma: 'شاورمە',
@@ -34,7 +34,7 @@ const sectionNamesKurdish = {
 };
 
 const sectionNamesArabic = {
-  mains: 'الأطباق الرئيسية',
+  main: 'الأطباق الرئيسية',
   bbq: 'الشواء',
   drinks: 'مشروبات',
   shawrma: 'شاورما',

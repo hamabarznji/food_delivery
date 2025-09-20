@@ -2,7 +2,7 @@ const menuData = {
   main: [
     { 
       id: 1, 
-      name: 'Chicken and Meat with Rice', 
+      name: 'Chicken and with Rice', 
       description: '', 
       price: 5000,
       image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop&auto=format'
