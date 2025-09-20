@@ -4,7 +4,7 @@ export async function POST(req) {
   try {
     const orderDetails = await req.json();
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-    const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID?.split(','); // comma-separated
+    const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID
 
     const message = `🍽️ *ئۆردەری نوێ*\n\n` +
       `👤 *ناو:* ${orderDetails.customerName}\n` +
