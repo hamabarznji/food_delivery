@@ -5,14 +5,14 @@ export async function POST(req) {
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const TELEGRAM_CHAT_ID = [process.env.id1,process.env.id2];
 
-    const message = `🍽️ *New Order*\n\n` +
-      `👤 Name: ${orderDetails.customerName}\n` +
-      `📱 Phone: ${orderDetails.phone}\n` +
-      `🏢 Building: ${orderDetails.building}\n` +
-      `🏠 Floor: ${orderDetails.floor}\n\n` +
-      `📋 Items:\n${orderDetails.items}\n\n` +
-      `💰 Total: $${orderDetails.total}\n\n` +
-      `⏰ Time: ${new Date().toLocaleString()}`;
+    const message = `🍽️ *داواکاری نوێ*\n\n` +
+      `👤 ناو: ${orderDetails.name}\n` +
+      `📱 ژمارەی مۆبایل: ${orderDetails.phone}\n` +
+      `🏢 باڵەخانە: ${orderDetails.building}\n` +
+      `🏠 نهۆم: ${orderDetails.floor}\n\n` +
+      `📋 داواکارییەکان:\n${orderDetails.items}\n\n` +
+      `💰 کۆی گشتی: $${orderDetails.total}\n\n` +
+      `⏰ کاتی داواکاری: ${new Date().toLocaleString()}`;
 
     for (const chatId of TELEGRAM_CHAT_ID) {
       const res = await fetch(
