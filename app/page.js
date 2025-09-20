@@ -3,9 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, X, Menu as MenuIcon } from 'lucide-react';
 import menuData from '@/public/menu';
-import Checkout from '@/src/checkout';
-import CustomerInfoComponent from '@/src/customerInfo'
-import Hero from '@/src/HeroSection'
 
 const RestaurantApp = () => {
   const [cart, setCart] = useState({});
@@ -21,35 +18,45 @@ const RestaurantApp = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Telegram Bot Configuration
-  const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Replace with your bot token
-  const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE'; // Replace with your chat ID
+
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN
+  const TELEGRAM_CHAT_ID = [
+    process.env.id1,
+    process.env.id2
+  ];
+
 
   const sendToTelegram = async (orderDetails) => {
     try {
-      const message = `🍽️ *NEW ORDER RECEIVED*\n\n` +
-        `👤 *Customer:* ${orderDetails.customerName}\n` +
-        `📱 *Phone:* ${orderDetails.phone}\n` +
-        `🏢 *Building:* ${orderDetails.building}\n` +
-        `🏠 *Floor:* ${orderDetails.floor}\n\n` +
-        `📋 *Order Items:*\n${orderDetails.items}\n\n` +
-        `💰 *Total Amount:* ${orderDetails.total}\n\n` +
-        `⏰ *Order Time:* ${new Date().toLocaleString()}`;
+      const message = `🍽️ *ئۆردەری نوێ*\n\n` +
+        `👤 *ناو:* ${orderDetails.customerName}\n` +
+        `📱 *ژمارەی مۆبایل:* ${orderDetails.phone}\n` +
+        `🏢 *باڵەخانە:* ${orderDetails.building}\n` +
+        `🏠 *نهۆم:* ${orderDetails.floor}\n\n` +
+        `📋 *داواکارییەکان:*\n${orderDetails.items}\n\n` +
+        `💰 *کۆی گشتی:* $${orderDetails.total}\n\n` +
+        `⏰ *کاتی ئۆردەر:* ${new Date().toLocaleString()}`;
 
-      const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: 'Markdown',
-        }),
-      });
+      // Loop through each chat_id
+      for (const chatId of TELEGRAM_CHAT_ID) {
+        const response = await fetch(
+          `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: message,
+              parse_mode: 'Markdown',
+            }),
+          }
+        );
 
-      if (!response.ok) {
-        throw new Error('Failed to send message to Telegram');
+        if (!response.ok) {
+          throw new Error(`Failed to send to chat_id: ${chatId}`);
+        }
       }
 
       return true;
@@ -87,7 +94,7 @@ const RestaurantApp = () => {
 
       const newQty = existing.quantity + change;
       if (newQty <= 0) {
-        const { [id]: _, ...rest } = prev; // remove item immutably
+        const { [id]: _, ...rest } = prev;
         return rest;
       }
 
@@ -97,7 +104,6 @@ const RestaurantApp = () => {
       };
     });
   };
-
 
   const getTotalItems = () => {
     return Object.values(cart).reduce((total, item) => total + item.quantity, 0);
@@ -111,28 +117,227 @@ const RestaurantApp = () => {
     setIsCheckout(true);
   };
 
-  const handleOrderSubmit = () => {
+  const handleOrderSubmit = async (e) => {
+
+    e.preventDefault(); // 
     // Basic validation
     if (!customerInfo.name || !customerInfo.phone || !customerInfo.building || !customerInfo.floor) {
       alert('Please fill in all fields');
       return;
     }
 
-    const total = getTotalPrice();
+    setIsSubmitting(true);
 
-    alert(`Order placed successfully!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: ${total.toFixed(2)}\n\nThank you for your order!`);
+    try {
+      const total = getTotalPrice();
 
-    setCart({});
-    setIsCartOpen(false);
-    setIsCheckout(false);
-    setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
+      // Prepare order details FIRST (while cart still has data)
+      const orderItems = Object.values(cart).map(item =>
+        `• ${item.name} x${item.quantity} - $${(item.price * item.quantity).toFixed(2)}`
+      ).join('\n');
+
+      const orderDetails = {
+        customerName: customerInfo.name,
+        phone: customerInfo.phone,
+        building: customerInfo.building,
+        floor: customerInfo.floor,
+        items: orderItems,
+        total: total.toFixed(2)
+      };
+
+      // Send to Telegram WITH DATA
+      const telegramSent = await sendToTelegram(orderDetails);
+
+      // Show different messages based on success/failure
+      if (telegramSent) {
+        alert(`Order sent successfully to Kebab Pasha!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: $${total.toFixed(2)}\n\nThank you for your order! We'll contact you soon.`);
+      } else {
+        alert(`Order placed successfully!\n\nCustomer: ${customerInfo.name}\nPhone: ${customerInfo.phone}\nAddress: Building ${customerInfo.building}, Floor ${customerInfo.floor}\nTotal: $${total.toFixed(2)}\n\nNote: There was an issue sending to our system, but your order has been recorded.`);
+      }
+
+      // Clear cart AFTER sending
+      setCart({});
+      setIsCartOpen(false);
+      setIsCheckout(false);
+      setCustomerInfo({ name: '', phone: '', building: '', floor: '' });
+
+    } catch (error) {
+      alert('There was an error processing your order. Please try again.');
+      console.error('Order submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const scrollToSection = (section) => {
     setActiveSection(section);
     setIsMobileMenuOpen(false);
-    // In a real Next.js app, you'd use refs or scroll behavior
   };
+
+  // Hero Component
+  const Hero = () => (
+    <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-16 shadow-xl">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4" style={{ color: '#E35711' }}>
+          Welcome to Kebab Pasha
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600">
+          Experience authentic Middle Eastern flavors crafted with love and tradition
+        </p>
+      </div>
+    </div>
+  );
+
+  // Checkout Component
+  const Checkout = ({ cart, updateQuantity, getTotalPrice, handleCheckout }) => (
+    <>
+      {Object.keys(cart).length === 0 ? (
+        <div className="text-center py-8">
+          <div className="text-6xl mb-4">🛒</div>
+          <h3 className="text-xl font-semibold mb-2 text-gray-600">Your cart is empty</h3>
+          <p className="text-gray-500">Add some delicious items to get started!</p>
+        </div>
+      ) : (
+        <>
+          <div className="space-y-4 mb-6">
+            {Object.values(cart).map((item) => (
+              <div key={item.id} className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-semibold text-gray-800">{item.name}</h4>
+                  <span className="font-bold" style={{ color: '#E35711' }}>
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">
+                    ${item.price.toFixed(2)} each
+                  </span>
+                  <div className="flex items-center space-x-3">
+                    <button
+                      onClick={() => updateQuantity(item.id, -1)}
+                      className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                      style={{ backgroundColor: '#E35711' }}
+                    >
+                      <Minus size={16} />
+                    </button>
+                    <span className="font-semibold min-w-[2rem] text-center">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => updateQuantity(item.id, 1)}
+                      className="w-8 h-8 rounded-full text-white flex items-center justify-center transition-all duration-300 transform hover:scale-110"
+                      style={{ backgroundColor: '#E35711' }}
+                    >
+                      <Plus size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t pt-4">
+            <div className="text-center mb-4">
+              <div className="text-2xl font-bold" style={{ color: '#E35711' }}>
+                Total: ${getTotalPrice().toFixed(2)}
+              </div>
+            </div>
+            <button
+              onClick={handleCheckout}
+              className="w-full py-4 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+              style={{ background: 'linear-gradient(135deg, #E35711, #ff7a3d)' }}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        </>
+      )}
+    </>
+  );
+
+  // Customer Info Component
+  const CustomerInfoComponent = ({ isSubmitting, getTotalPrice, setCustomerInfo, customerInfo, onSubmit }) => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-semibold mb-2 text-gray-700">
+          Full Name
+        </label>
+        <input
+          type="text"
+          required
+          value={customerInfo.name}
+          onChange={(e) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
+          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
+          placeholder="Enter your full name"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold mb-2 text-gray-700">
+          Phone Number
+        </label>
+        <input
+          type="tel"
+          required
+          value={customerInfo.phone}
+          onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
+          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
+          placeholder="Enter your phone number"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold mb-2 text-gray-700">
+          Building Number
+        </label>
+        <input
+          type="text"
+          required
+          value={customerInfo.building}
+          onChange={(e) => setCustomerInfo(prev => ({ ...prev, building: e.target.value }))}
+          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
+          placeholder="Enter building number"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold mb-2 text-gray-700">
+          Floor Number
+        </label>
+        <input
+          type="text"
+          required
+          value={customerInfo.floor}
+          onChange={(e) => setCustomerInfo(prev => ({ ...prev, floor: e.target.value }))}
+          className="w-full p-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-orange-400 transition-colors"
+          placeholder="Enter floor number"
+        />
+      </div>
+
+      <div className="border-t pt-4 mt-6">
+        <div className="text-center mb-4">
+          <div className="text-xl font-bold" style={{ color: '#E35711' }}>
+            Order Total: ${getTotalPrice().toFixed(2)}
+          </div>
+        </div>
+        <button
+          onClick={onSubmit}
+          disabled={isSubmitting}
+          className={`w-full py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+        >
+          {isSubmitting ? (
+            <div className="flex items-center justify-center space-x-2">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+              <span>Placing Order...</span>
+            </div>
+          ) : (
+            'Place Order'
+          )}
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#E6E7B2', color: '#E35711' }}>
@@ -157,7 +362,6 @@ const RestaurantApp = () => {
                     }`}
                   style={{
                     backgroundColor: activeSection === section ? '#E35711' : 'transparent',
-                    ':hover': { backgroundColor: '#E35711' }
                   }}
                   onMouseEnter={(e) => {
                     if (activeSection !== section) {
@@ -230,7 +434,7 @@ const RestaurantApp = () => {
       </header>
 
       {/* Hero Section */}
-   <Hero/>
+      <Hero />
 
       {/* Menu Sections */}
       <div className="container mx-auto px-4 pb-16">
@@ -312,14 +516,20 @@ const RestaurantApp = () => {
             </div>
 
             {!isCheckout ? (
-
-
-
-              <Checkout cart={cart} updateQuantity={updateQuantity} getTotalPrice={getTotalPrice} handleCheckout={handleCheckout} />
-
-
+              <Checkout
+                cart={cart}
+                updateQuantity={updateQuantity}
+                getTotalPrice={getTotalPrice}
+                handleCheckout={handleCheckout}
+              />
             ) : (
-              <CustomerInfoComponent isSubmitting={isSubmitting} getTotalPrice={getTotalPrice} setCustomerInfo={setCustomerInfo} customerInfo={customerInfo} />
+              <CustomerInfoComponent
+                isSubmitting={isSubmitting}
+                getTotalPrice={getTotalPrice}
+                setCustomerInfo={setCustomerInfo}
+                customerInfo={customerInfo}
+                onSubmit={handleOrderSubmit}
+              />
             )}
           </div>
         </div>
