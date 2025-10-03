@@ -152,13 +152,7 @@ const menuData = {
       description: '', 
       price: 500,
     image: '17.png'   // ✅ always from site root
-    },  { 
-      id: 1533, 
-      name: ' کۆکا کۆلا', 
-      description: '', 
-      price: 500,
-    image: '19.png'   // ✅ always from site root
-    },
+    }, 
     { 
       id: 16, 
       name: 'لبن', 
