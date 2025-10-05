@@ -16,19 +16,19 @@ const menuData = {
     image: '7.JPG'   // ✅ always from site root
     }, { 
       id: 1333212, 
-      name: 'ڕیزۆری شاورمەی مریشک', 
+      name: 'ڕیزۆی شاورمەی مریشک', 
       description: '', 
       price: 5000,
     image: '210.JPG'   // ✅ always from site root
     }, { 
       id: 101230, 
-      name: 'ڕیزۆری شاورمەی گۆشت', 
+      name: 'ڕیزۆی شاورمەی گۆشت', 
       description: '', 
       price: 5000,
     image: '211.JPG'   // ✅ always from site root
     }, { 
       id: 100, 
-      name: 'ڕیزۆری کریسپی ', 
+      name: 'ڕیزۆی کریسپی ', 
       description: '', 
       price: 5000,
     image: '212.JPG'   // ✅ always from site root
