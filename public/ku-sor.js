@@ -14,7 +14,28 @@ const menuData = {
       description: '', 
       price: 3000,
     image: '7.JPG'   // ✅ always from site root
-    }],
+    }, { 
+      id: 1333212, 
+      name: 'ڕیزۆری شاورمەی مریشک', 
+      description: '', 
+      price: 5000,
+    image: '210.JPG'   // ✅ always from site root
+    }, { 
+      id: 101230, 
+      name: 'ڕیزۆری شاورمەی گۆشت', 
+      description: '', 
+      price: 5000,
+    image: '211.JPG'   // ✅ always from site root
+    }, { 
+      id: 100, 
+      name: 'ڕیزۆری کریسپی ', 
+      description: '', 
+      price: 5000,
+    image: '212.JPG'   // ✅ always from site root
+    }
+  
+  
+  ],
   bbq: [
     { 
       id: 2, 
