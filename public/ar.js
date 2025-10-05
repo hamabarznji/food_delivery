@@ -87,14 +87,14 @@ const menuData = {
       name: 'شاورما دجاج', 
       description: '',
       price: 2000,
-    image: '10.JPG'   // ✅ always from site root
+    image: '100.JPG'   // ✅ always from site root
     },
     { 
       id: 12, 
       name: ' شاورما لحم', 
       description: '', 
       price: 2500,
-    image: '9.JPG'   // ✅ always from site root
+    image: '99.JPG'   // ✅ always from site root
     },
 
     { 
@@ -121,13 +121,13 @@ const menuData = {
       name: 'ماعون دجاج', 
       description: '', 
       price: 4500,
-    image: '13.JPG'   // ✅ always from site root
+    image: '133.JPG'   // ✅ always from site root
     }, { 
       id: 1244, 
       name: 'ماعون لحم', 
       description: '', 
       price: 5000,
-    image: '14.JPG'   // ✅ always from site root
+    image: '144.JPG'   // ✅ always from site root
     },{ 
       id: 12444, 
       name:'فينگه ر و كريسپى و صوص و هالپينؤ', 

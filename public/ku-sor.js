@@ -87,14 +87,14 @@ const menuData = {
       name: 'شاورمەی مریشک', 
       description: '',
       price: 2000,
-    image: '10.JPG'   // ✅ always from site root
+    image: '100.JPG'   // ✅ always from site root
     },
     { 
       id: 12, 
       name: ' شاورمەی گۆشت', 
       description: '', 
       price: 2500,
-    image: '9.JPG'   // ✅ always from site root
+    image: '99.JPG'   // ✅ always from site root
     },
 
     { 
