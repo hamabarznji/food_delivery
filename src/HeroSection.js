@@ -5,6 +5,9 @@ const Hero=({text})=>{
           <h1 className="text-4xl md:text-6xl font-bold mb-4" style={{ color: '#E35711' }}>
             {text}
           </h1>
+           <h3 className="text-4xl md:text-3xl font-bold mb-4" style={{ color: 'black' }}>
+            0750 448 98 92
+          </h3>
           {/* <p className="text-lg md:text-xl text-gray-600">
             Experience the finest flavors crafted with love and passion...
           </p> */}

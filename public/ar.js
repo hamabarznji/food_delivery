@@ -68,7 +68,7 @@ const menuData = {
     },
       { 
       id: 9, 
-      name: 'گورچیلە', 
+      name: 'جلاوی', 
       description: '', 
       price: 4000,
     image: '4.JPG'   // ✅ always from site root
@@ -130,10 +130,16 @@ const menuData = {
     image: '144.JPG'   // ✅ always from site root
     },{ 
       id: 12444, 
-      name:'فينگه ر و كريسپى و صوص و هالپينؤ', 
-      description: '', 
+      name:'كرانشى فرايز', 
+      description: 'ينگه ر و كريسپى و صوص و هالپينؤ', 
       price: 5000,
     image: '15.JPG'   // ✅ always from site root
+    },{ 
+      id: 122434, 
+    name:'فینگەر مع صوصی', 
+      description: '', 
+      price: 3000,
+    image: '200.JPG'   // ✅ always from site root
     },
     { 
       id: 12244, 
