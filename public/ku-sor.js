@@ -49,7 +49,7 @@ const menuData = {
       name: ' باڵی مریشک', 
       description: '', 
       price: 4000,
-      image: '8.JPG'
+      image: '88.JPG'
     },
     { 
       id: 7, 
