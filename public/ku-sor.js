@@ -121,13 +121,13 @@ const menuData = {
       name: 'ماعون مريشك', 
       description: '', 
       price: 4500,
-    image: '13.JPG'   // ✅ always from site root
+    image: '133.JPG'   // ✅ always from site root
     }, { 
       id: 1244, 
       name: 'ماعون گۆشت', 
       description: '', 
       price: 5000,
-    image: '14.JPG'   // ✅ always from site root
+    image: '144.JPG'   // ✅ always from site root
     },{ 
       id: 12444, 
       name:'فينگه ر و كريسپى و صوص و هالپينؤ', 
