@@ -47,7 +47,7 @@ const CustomerInfoComponent = ({
   phone,
   name,
   building,
-  comment,        // ✅ new
+  comment,        // ✅ newww
   lang = "en"
 }) => {
   const t = translations[lang] || translations.en;
