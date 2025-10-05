@@ -6,7 +6,7 @@ const LanguageDropdown = ({ currentLang, setLang }) => {
   const languages = [
     { code: 'krd', label: 'کوردی (سۆرانی)' },
     { code: 'ar', label: 'العربية' },
-    { code: 'en', label: 'English' },
+
 
 
   ];
