@@ -19,6 +19,7 @@ import LanguageDropdown from '@/src/lang';
 const sectionNamesEnglish = {
   shawrma: 'Shawrma',
   main: 'Main Courses',
+  desserts: 'Desserts',
   drinks: 'Drinks',
   bbq: 'BBQ',
   sandwiches: 'Sandwiches',
@@ -29,6 +30,7 @@ const sectionNamesKurdish = {
   drinks: 'خواردنەوەکان',
   bbq: 'برژاو',
   shawrma: 'شاورمە',
+  desserts: 'شیرینی',
   sandwiches: 'ساندوێچ',
 };
 
@@ -37,6 +39,7 @@ const sectionNamesArabic = {
   bbq: 'الشواء',
   drinks: 'مشروبات',
   shawrma: 'شاورما',
+  desserts: 'حلويات',
   sandwiches: 'ساندوتشات',
 };
 
