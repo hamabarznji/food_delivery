@@ -1,0 +1,929 @@
+{
+  "en": {
+    "grills": [
+      {
+        "id": "grill-kebab",
+        "name": "Kebab",
+        "description": "Traditional grilled minced meat skewers seasoned with fresh herbs and spices",
+        "price": 4000,
+        "image": "1.JPG"
+      },
+      {
+        "id": "grill-chicken-tikka",
+        "name": "Chicken Tikka",
+        "description": "Marinated tender chicken chunks grilled to perfection over charcoal",
+        "price": 4000,
+        "image": "3.JPG"
+      },
+      {
+        "id": "grill-meat-tikka",
+        "name": "Meat Tikka",
+        "description": "Succulent cubes of marinated beef char-grilled with rich flavors",
+        "price": 4000,
+        "image": "2.JPG"
+      },
+      {
+        "id": "grill-maalak",
+        "name": "Liver (Maalak)",
+        "description": "Fresh grilled lamb liver skewers with authentic spices",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-wings",
+        "name": "Wings",
+        "description": "Charcoal-grilled juicy chicken wings with savory seasoning",
+        "price": 4000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "grill-heart",
+        "name": "Heart",
+        "description": "Tender grilled heart skewers expertly seasoned",
+        "price": 4000,
+        "image": "5.JPG"
+      },
+      {
+        "id": "grill-jalawi",
+        "name": "Jalawi",
+        "description": "Fresh grilled kidney skewers spiced with secret blend",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-liya",
+        "name": "Liya",
+        "description": "Crispy charcoal-rendered lamb tail fat skewers",
+        "price": 4000,
+        "image": "20.png"
+      }
+    ],
+    "chicken-wings": [
+      {
+        "id": "wings-6-honey-mustard",
+        "name": "6 pc Wings – Honey Mustard",
+        "description": "6 pieces crispy wings tossed in rich honey mustard glaze",
+        "pieces": 6,
+        "sauce": "Honey Mustard",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-6-bbq",
+        "name": "6 pc Wings – BBQ",
+        "description": "6 pieces crispy wings smothered in smoky BBQ sauce",
+        "pieces": 6,
+        "sauce": "BBQ",
+        "price": 5000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-6-buffalo",
+        "name": "6 pc Wings – Buffalo",
+        "description": "6 pieces crispy wings coated in zesty spicy buffalo sauce",
+        "pieces": 6,
+        "sauce": "Buffalo",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-honey-mustard",
+        "name": "12 pc Wings – Honey Mustard",
+        "description": "12 pieces crispy wings tossed in rich honey mustard glaze",
+        "pieces": 12,
+        "sauce": "Honey Mustard",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-bbq",
+        "name": "12 pc Wings – BBQ",
+        "description": "12 pieces crispy wings smothered in smoky BBQ sauce",
+        "pieces": 12,
+        "sauce": "BBQ",
+        "price": 9000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-12-buffalo",
+        "name": "12 pc Wings – Buffalo",
+        "description": "12 pieces crispy wings coated in zesty spicy buffalo sauce",
+        "pieces": 12,
+        "sauce": "Buffalo",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-plain",
+        "name": "Chicken Wings",
+        "description": "Classic crispy golden fried chicken wings",
+        "price": 9000,
+        "image": "88.JPG"
+      }
+    ],
+    "shawarma": [
+      {
+        "id": "shawarma-chicken",
+        "name": "Chicken Shawarma",
+        "description": "Thinly sliced seasoned chicken wrapped with garlic cream and pickles",
+        "price": 2000,
+        "image": "100.JPG"
+      },
+      {
+        "id": "shawarma-meat",
+        "name": "Meat Shawarma",
+        "description": "Spiced tender beef shawarma slices with tahini and sumac onions",
+        "price": 2500,
+        "image": "99.JPG"
+      },
+      {
+        "id": "shawarma-potato",
+        "name": "Potato Shawarma",
+        "description": "Warm flatbread rolled with crispy potatoes, garlic paste, and seasoning",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "falafel-wrap",
+        "name": "Falafel Wrap",
+        "description": "Crispy fried chickpea falafels with fresh salad and tahini in flatbread",
+        "price": 1000,
+        "image": "falafel-wrap.jpg"
+      },
+      {
+        "id": "saj-meat",
+        "name": "Meat Saj",
+        "description": "Beef shawarma rolled in crisp toasted thin saj bread",
+        "price": 4500,
+        "image": "11.JPG"
+      },
+      {
+        "id": "saj-chicken",
+        "name": "Chicken Saj",
+        "description": "Chicken shawarma rolled in toasted saj bread with garlic sauce",
+        "price": 4000,
+        "image": "11.JPG"
+      },
+      {
+        "id": "plate-chicken",
+        "name": "Chicken Plate",
+        "description": "Generous platter of chicken shawarma slices served with bread, pickles, and dips",
+        "price": 4500,
+        "image": "133.JPG"
+      },
+      {
+        "id": "plate-meat",
+        "name": "Meat Plate",
+        "description": "Hearty platter of marinated meat shawarma served with bread, tahini, and sides",
+        "price": 5000,
+        "image": "144.JPG"
+      },
+      {
+        "id": "caesar-salad",
+        "name": "Caesar Salad",
+        "description": "Crisp romaine lettuce, parmesan cheese, crunchy croutons, and grilled chicken with creamy caesar dressing",
+        "price": 5000,
+        "image": "caesar-salad.jpg"
+      }
+    ],
+    "chicken-burger": [
+      {
+        "id": "chicken-burger-honey-mustard",
+        "name": "Chicken Burger – Honey Mustard",
+        "description": "Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, Honey Mustard",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-bbq",
+        "name": "Chicken Burger – BBQ",
+        "description": "Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, BBQ",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-buffalo",
+        "name": "Chicken Burger – Buffalo",
+        "description": "Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, Buffalo",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      }
+    ],
+    "rizo": [
+      {
+        "id": "rizo-chicken-shawarma",
+        "name": "Rizo Chicken Shawarma",
+        "description": "Fragrant yellow rizo rice topped with chicken shawarma and chef sauce",
+        "price": 5000,
+        "image": "210.JPG"
+      },
+      {
+        "id": "rizo-meat-shawarma",
+        "name": "Rizo Meat Shawarma",
+        "description": "Aromatic rizo rice served with savory meat shawarma slices and special sauce",
+        "price": 5000,
+        "image": "211.JPG"
+      },
+      {
+        "id": "rizo-crispy",
+        "name": "Rizo Crispy",
+        "description": "Steaming rizo rice crowned with crunchy crispy chicken tenders and sauces",
+        "price": 5000,
+        "image": "212.JPG"
+      }
+    ],
+    "finger": [
+      {
+        "id": "finger",
+        "name": "Finger",
+        "description": "Golden crispy potato french fries served hot and lightly salted",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "finger-sauce",
+        "name": "Finger with Sauce",
+        "description": "Crispy french fries served with delicious signature dipping sauce",
+        "price": 3000,
+        "image": "200.JPG"
+      },
+      {
+        "id": "chicken-box",
+        "name": "Chicken Box",
+        "description": "Crispy golden chicken pieces paired with french fries and sauce",
+        "price": 5000,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-chicken-shawarma",
+        "name": "Finger + Chicken Shawarma (Honey Mustard + Cheese)",
+        "description": "Loaded fries topped with chicken shawarma, melted cheese, and honey mustard sauce",
+        "price": 5500,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-brisket",
+        "name": "Finger + Brisket (Steak + Cheese)",
+        "description": "Loaded fries with tender beef brisket, rich steak sauce, and melted cheese",
+        "price": 6000,
+        "image": "15.JPG"
+      }
+    ],
+    "beef-burger": [
+      {
+        "id": "pasha-burger",
+        "name": "Pasha Burger",
+        "description": "Veal, Steak sauce, Mushroom, Cheese",
+        "price": 6000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "classic-burger",
+        "name": "Classic Burger",
+        "description": "Veal, Steak sauce, Lettuce, Tomato",
+        "price": 5000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "brisket-burger",
+        "name": "Brisket Burger",
+        "description": "Veal, Brisket, Steak sauce, Lettuce, Tomato, Cheese, Pickles",
+        "price": 7000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "original-burger",
+        "name": "Original Burger",
+        "description": "Veal, Steak sauce, Lettuce, Tomato, Cheese, Pickles",
+        "price": 5500,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "mini-burger",
+        "name": "Mini Burger",
+        "description": "5 pieces Veal sliders with melted cheese on mini brioche buns",
+        "pieces": 5,
+        "price": 7000,
+        "image": "mini-burger.jpg"
+      }
+    ]
+  },
+  "ar": {
+    "grills": [
+      {
+        "id": "grill-kebab",
+        "name": "كباب",
+        "description": "أسياخ كباب لحم طازج مشوي على الفحم بتتبيلة مميزة",
+        "price": 4000,
+        "image": "1.JPG"
+      },
+      {
+        "id": "grill-chicken-tikka",
+        "name": "تكة دجاج",
+        "description": "قطع دجاج متبلة ومشوية على الفحم بطعم شهي",
+        "price": 4000,
+        "image": "3.JPG"
+      },
+      {
+        "id": "grill-meat-tikka",
+        "name": "تكة لحم",
+        "description": "قطع لحم عجل طري متبل ومشوي على الفحم",
+        "price": 4000,
+        "image": "2.JPG"
+      },
+      {
+        "id": "grill-maalak",
+        "name": "معلاك",
+        "description": "معلاك (كبدة) غنم طازجة مشوية على الفحم بتوابل خاصة",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-wings",
+        "name": "اجنحة",
+        "description": "أجنحة دجاج متبلة مشوية على الفحم بنكهة الشواء الأصيلة",
+        "price": 4000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "grill-heart",
+        "name": "قلب",
+        "description": "أسياخ قلوب طازجة متبلة ومشوية بعناية",
+        "price": 4000,
+        "image": "5.JPG"
+      },
+      {
+        "id": "grill-jalawi",
+        "name": "جلاوي",
+        "description": "أسياخ كلى (جلاوي) طازجة مشوية بتتبيلتنا الخاصة",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-liya",
+        "name": "لية",
+        "description": "لية غنم مقرمشة مشوية على الفحم",
+        "price": 4000,
+        "image": "20.png"
+      }
+    ],
+    "chicken-wings": [
+      {
+        "id": "wings-6-honey-mustard",
+        "name": "6 قطعة اجنحة مع صوص (هاني ماستر)",
+        "description": "6 قطع أجنحة دجاج مقرمشة مع صوص هاني ماستر",
+        "pieces": 6,
+        "sauce": "هاني ماستر",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-6-bbq",
+        "name": "6 قطعة اجنحة مع صوص (باربيكيو)",
+        "description": "6 قطع أجنحة دجاج مقرمشة مع صوص باربيكيو غني",
+        "pieces": 6,
+        "sauce": "باربيكيو",
+        "price": 5000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-6-buffalo",
+        "name": "6 قطعة اجنحة مع صوص (بافالو)",
+        "description": "6 قطع أجنحة دجاج مقرمشة مع صوص بافالو الحار",
+        "pieces": 6,
+        "sauce": "بافالو",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-honey-mustard",
+        "name": "12 قطعة اجنحة مع صوص (هاني ماستر)",
+        "description": "12 قطعة أجنحة دجاج مقرمشة مع صوص هاني ماستر",
+        "pieces": 12,
+        "sauce": "هاني ماستر",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-bbq",
+        "name": "12 قطعة اجنحة مع صوص (باربيكيو)",
+        "description": "12 قطعة أجنحة دجاج مقرمشة مع صوص باربيكيو غني",
+        "pieces": 12,
+        "sauce": "باربيكيو",
+        "price": 9000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-12-buffalo",
+        "name": "12 قطعة اجنحة مع صوص (بافالو)",
+        "description": "12 قطعة أجنحة دجاج مقرمشة مع صوص بافالو الحار",
+        "pieces": 12,
+        "sauce": "بافالو",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-plain",
+        "name": "اجنحة دجاج",
+        "description": "أجنحة دجاج مقلية مقرمشة على الطريقة الكلاسيكية",
+        "price": 9000,
+        "image": "88.JPG"
+      }
+    ],
+    "shawarma": [
+      {
+        "id": "shawarma-chicken",
+        "name": "شاورما دجاج",
+        "description": "لفافة شاورما دجاج متبلة مع صوص الثوم والمخلل",
+        "price": 2000,
+        "image": "100.JPG"
+      },
+      {
+        "id": "shawarma-meat",
+        "name": "شاورما لحم",
+        "description": "لفافة شاورما لحم طازج مع طحينية وبصل وسماق",
+        "price": 2500,
+        "image": "99.JPG"
+      },
+      {
+        "id": "shawarma-potato",
+        "name": "شاورما بطاطا",
+        "description": "ساندوتش بطاطا مقرمشة بتتبيلة خاصة وصوص كريمي",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "falafel-wrap",
+        "name": "فلافل خبز",
+        "description": "ساندوتش فلافل مقرمشة مع سلطة طازجة وصوص الطحينية",
+        "price": 1000,
+        "image": "falafel-wrap.jpg"
+      },
+      {
+        "id": "saj-meat",
+        "name": "صاج لحم",
+        "description": "شاورما لحم ملفوفة بخبز الصاج المحمص والمقرمش",
+        "price": 4500,
+        "image": "11.JPG"
+      },
+      {
+        "id": "saj-chicken",
+        "name": "صاج دجاج",
+        "description": "شاورما دجاج ملفوفة بخبز الصاج المحمص مع صوص الثوم",
+        "price": 4000,
+        "image": "11.JPG"
+      },
+      {
+        "id": "plate-chicken",
+        "name": "ماعون دجاج",
+        "description": "ماعون شاورما دجاج يقدم مع الخبز والمخللات والصوصات",
+        "price": 4500,
+        "image": "133.JPG"
+      },
+      {
+        "id": "plate-meat",
+        "name": "ماعون لحم",
+        "description": "ماعون شاورما لحم شهي يقدم مع الخبز والطحينية والمقبلات",
+        "price": 5000,
+        "image": "144.JPG"
+      },
+      {
+        "id": "caesar-salad",
+        "name": "سلاطة سيزر",
+        "description": "خس مقرمش مع جبن بارميزان وخبز محمص وقطع دجاج وصوص سيزر",
+        "price": 5000,
+        "image": "caesar-salad.jpg"
+      }
+    ],
+    "chicken-burger": [
+      {
+        "id": "chicken-burger-honey-mustard",
+        "name": "بركر دجاج (هاني ماستر)",
+        "description": "كرسبي + خس + طماطة + خيار مخلل + زلاطة + هاني ماستر",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-bbq",
+        "name": "بركر دجاج (باربيكيو)",
+        "description": "كرسبي + خس + طماطة + خيار مخلل + زلاطة + باربيكيو",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-buffalo",
+        "name": "بركر دجاج (بوفالو)",
+        "description": "كرسبي + خس + طماطة + خيار مخلل + زلاطة + بوفالو",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      }
+    ],
+    "rizo": [
+      {
+        "id": "rizo-chicken-shawarma",
+        "name": "ريزو شاورمة دجاج",
+        "description": "رز ريزو خاص مع شاورما دجاج وصوص هاني ماستر وباربيكيو",
+        "price": 5000,
+        "image": "210.JPG"
+      },
+      {
+        "id": "rizo-meat-shawarma",
+        "name": "ريزو شاورمة لحم",
+        "description": "رز ريزو متبل مع شاورما لحم وصوص هاني ماستر وباربيكيو",
+        "price": 5000,
+        "image": "211.JPG"
+      },
+      {
+        "id": "rizo-crispy",
+        "name": "ريزو كرسبي",
+        "description": "رز ريزو لذيذ مع قطع دجاج كريسبي وصوصات مميزة",
+        "price": 5000,
+        "image": "212.JPG"
+      }
+    ],
+    "finger": [
+      {
+        "id": "finger",
+        "name": "فينكر",
+        "description": "بطاطا مقلية ذهبية مقرمشة وطازجة",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "finger-sauce",
+        "name": "فينكر مع صوص",
+        "description": "بطاطا مقلية مقرمشة تقدم مع صوص مميز ولذيذ",
+        "price": 3000,
+        "image": "200.JPG"
+      },
+      {
+        "id": "chicken-box",
+        "name": "جيكن بوكس",
+        "description": "بوكس قطع دجاج مقرمشة مع فينكر وصوصات",
+        "price": 5000,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-chicken-shawarma",
+        "name": "فينكر + شاورمة دجاج (هاني ماستر + جبن)",
+        "description": "فينكر مع شاورمة دجاج مغطاة بصوص هاني ماستر وجبن ذائب",
+        "price": 5500,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-brisket",
+        "name": "فينكر + برسكت (ستيك + جبن)",
+        "description": "فينكر مع لحم بريسكت طري وصوص ستيك وجبن ذائب",
+        "price": 6000,
+        "image": "15.JPG"
+      }
+    ],
+    "beef-burger": [
+      {
+        "id": "pasha-burger",
+        "name": "باشا بركر",
+        "description": "لحم عجل + صوص ستيك + فطر + جبن",
+        "price": 6000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "classic-burger",
+        "name": "كلاسيك بركر",
+        "description": "لحم عجل + صوص ستيك + خس + طماطة",
+        "price": 5000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "brisket-burger",
+        "name": "برسكت بركر",
+        "description": "لحم عجل + برسكت + صوص ستيك + خس + طماطة + جبن + خيار مخلل",
+        "price": 7000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "original-burger",
+        "name": "اورجينال بركر",
+        "description": "لحم عجل + صوص ستيك + خس + طماطة + جبن + خيار مخلل",
+        "price": 5500,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "mini-burger",
+        "name": "ميني بركر",
+        "description": "5 قطع لحم عجل + جبن",
+        "pieces": 5,
+        "price": 7000,
+        "image": "mini-burger.jpg"
+      }
+    ]
+  },
+  "krd": {
+    "grills": [
+      {
+        "id": "grill-kebab",
+        "name": "کەباب",
+        "description": "شیشی کەبابی گۆشتی فرێش و بەلەزەت لەسەر خەڵووز",
+        "price": 4000,
+        "image": "1.JPG"
+      },
+      {
+        "id": "grill-chicken-tikka",
+        "name": "تکەی مریشک",
+        "description": "تکەی مریشکی تێکراو و برژاو لەسەر خەڵووز بە تامی تایبەت",
+        "price": 4000,
+        "image": "3.JPG"
+      },
+      {
+        "id": "grill-meat-tikka",
+        "name": "تکەی گۆشت",
+        "description": "تکەی گۆشتی نەرمی جوانەگا برژاو لەسەر خەڵووز",
+        "price": 4000,
+        "image": "2.JPG"
+      },
+      {
+        "id": "grill-maalak",
+        "name": "جەرگ",
+        "description": "جەرگی فرێش و برژاو بە بەهاراتی تایبەتی پاشا",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-wings",
+        "name": "باڵی مریشک",
+        "description": "باڵی مریشکی برژاو لەسەر خەڵووز بە تامی نایاب",
+        "price": 4000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "grill-heart",
+        "name": "دڵ",
+        "description": "دڵی فرێش و برژاو بە تامی تایبەت",
+        "price": 4000,
+        "image": "5.JPG"
+      },
+      {
+        "id": "grill-jalawi",
+        "name": "گورچیلە",
+        "description": "گورچیلەی فرێش و برژاو بە تێکراوی تایبەت",
+        "price": 4000,
+        "image": "4.JPG"
+      },
+      {
+        "id": "grill-liya",
+        "name": "دونگ",
+        "description": "دونگی برژاوی مقرمش لەسەر خەڵووز",
+        "price": 4000,
+        "image": "20.png"
+      }
+    ],
+    "chicken-wings": [
+      {
+        "id": "wings-6-honey-mustard",
+        "name": "٦ باڵ بە صۆص (هانی ماستەرد)",
+        "description": "٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی هانی ماستەرد",
+        "pieces": 6,
+        "sauce": "هانی ماستەرد",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-6-bbq",
+        "name": "٦ باڵ بە صۆص (باربیکیۆ)",
+        "description": "٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی باربیکیۆ",
+        "pieces": 6,
+        "sauce": "باربیکیۆ",
+        "price": 5000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-6-buffalo",
+        "name": "٦ باڵ بە صۆص (بافالۆ)",
+        "description": "٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی توونی بافالۆ",
+        "pieces": 6,
+        "sauce": "بافالۆ",
+        "price": 5000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-honey-mustard",
+        "name": "١٢ باڵ بە صۆص (هانی ماستەرد)",
+        "description": "١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی هانی ماستەرد",
+        "pieces": 12,
+        "sauce": "هانی ماستەرد",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-12-bbq",
+        "name": "١٢ باڵ بە صۆص (باربیکیۆ)",
+        "description": "١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی باربیکیۆ",
+        "pieces": 12,
+        "sauce": "باربیکیۆ",
+        "price": 9000,
+        "image": "88.JPG"
+      },
+      {
+        "id": "wings-12-buffalo",
+        "name": "١٢ باڵ بە صۆص (بافالۆ)",
+        "description": "١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی توونی بافالۆ",
+        "pieces": 12,
+        "sauce": "بافالۆ",
+        "price": 9000,
+        "image": "8.jpg"
+      },
+      {
+        "id": "wings-plain",
+        "name": "باڵی مریشک",
+        "description": "باڵی مریشکی سوورکراوەی کریسپی کلاسیک",
+        "price": 9000,
+        "image": "88.JPG"
+      }
+    ],
+    "shawarma": [
+      {
+        "id": "shawarma-chicken",
+        "name": "شاورمەی مریشک",
+        "description": "دەفەی شاورمەی مریشک لەگەڵ سۆسی سیری تایبەت و ترشیات",
+        "price": 2000,
+        "image": "100.JPG"
+      },
+      {
+        "id": "shawarma-meat",
+        "name": "شاورمەی گۆشت",
+        "description": "دەفەی شاورمەی گۆشت لەگەڵ ڕاشی و پیاز و سماق",
+        "price": 2500,
+        "image": "99.JPG"
+      },
+      {
+        "id": "shawarma-potato",
+        "name": "شاورمەی پەتاتە",
+        "description": "ساندویچی پەتاتەی برژاو بە تێکراوی تایبەت و سۆس",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "falafel-wrap",
+        "name": "فەلافل بە نان",
+        "description": "ساندویچی فەلافلی کریسپی بە زەڵاتە و ڕاشی",
+        "price": 1000,
+        "image": "falafel-wrap.jpg"
+      },
+      {
+        "id": "saj-meat",
+        "name": "ساجی گۆشت",
+        "description": "شاورمەی گۆشت لە ناو نانی ساجی برژاو و کریسپی",
+        "price": 4500,
+        "image": "11.JPG"
+      },
+      {
+        "id": "saj-chicken",
+        "name": "ساجی مریشک",
+        "description": "شاورمەی مریشک لە ناو نانی ساجی برژاو بە سۆسی سیر",
+        "price": 4000,
+        "image": "11.JPG"
+      },
+      {
+        "id": "plate-chicken",
+        "name": "ماعونی مریشک",
+        "description": "ماعونی شاورمەی مریشک پێشکەش دەکرێت لەگەڵ نان و سۆس و ترشیات",
+        "price": 4500,
+        "image": "133.JPG"
+      },
+      {
+        "id": "plate-meat",
+        "name": "ماعونی گۆشت",
+        "description": "ماعونی شاورمەی گۆشت لەگەڵ ڕاشی و نان و موقەبیلات",
+        "price": 5000,
+        "image": "144.JPG"
+      },
+      {
+        "id": "caesar-salad",
+        "name": "زەڵاتەی سیزەر",
+        "description": "کاهووی فرێش، پەنیری پارمیزان، نانی برژاو، مریشکی برژاو بە سۆسی سیزەر",
+        "price": 5000,
+        "image": "caesar-salad.jpg"
+      }
+    ],
+    "chicken-burger": [
+      {
+        "id": "chicken-burger-honey-mustard",
+        "name": "بەرگری مریشک (هانی ماستەرد)",
+        "description": "کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + هانی ماستەرد",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-bbq",
+        "name": "بەرگری مریشک (باربیکیۆ)",
+        "description": "کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + باربیکیۆ",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      },
+      {
+        "id": "chicken-burger-buffalo",
+        "name": "بەرگری مریشک (بوفالۆ)",
+        "description": "کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + بوفالۆ",
+        "price": 5000,
+        "image": "chicken-burger.jpg"
+      }
+    ],
+    "rizo": [
+      {
+        "id": "rizo-chicken-shawarma",
+        "name": "ڕیزۆی شاورمەی مریشک",
+        "description": "برنجی ڕیزۆی تایبەت لەگەڵ شاورمەی مریشک و سۆس",
+        "price": 5000,
+        "image": "210.JPG"
+      },
+      {
+        "id": "rizo-meat-shawarma",
+        "name": "ڕیزۆی شاورمەی گۆشت",
+        "description": "برنجی ڕیزۆ لەگەڵ شاورمەی گۆشت و سۆسی تایبەت",
+        "price": 5000,
+        "image": "211.JPG"
+      },
+      {
+        "id": "rizo-crispy",
+        "name": "ڕیزۆی کریسپی",
+        "description": "برنجی ڕیزۆ لەگەڵ پارچە مریشکی کریسپی و سۆس",
+        "price": 5000,
+        "image": "212.JPG"
+      }
+    ],
+    "finger": [
+      {
+        "id": "finger",
+        "name": "فینگەر",
+        "description": "پەتاتەی سوورکراوەی ئاڵتوونی و کریسپی",
+        "price": 1500,
+        "image": "16.jpg"
+      },
+      {
+        "id": "finger-sauce",
+        "name": "فینگەر بە صۆص",
+        "description": "فینگەری سوورکراوە پێشکەش دەکرێت لەگەڵ سۆسی تایبەت",
+        "price": 3000,
+        "image": "200.JPG"
+      },
+      {
+        "id": "chicken-box",
+        "name": "چیکن بۆکس",
+        "description": "بۆکسی پارچە مریشکی کریسپی لەگەڵ فینگەر و سۆس",
+        "price": 5000,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-chicken-shawarma",
+        "name": "فینگەر + شاورمەی مریشک (هانی ماستەرد + پەنیر)",
+        "description": "فینگەر بە شاورمەی مریشک، سۆسی هانی ماستەرد و پەنیری تواوە",
+        "price": 5500,
+        "image": "15.JPG"
+      },
+      {
+        "id": "finger-brisket",
+        "name": "فینگەر + برێسکێت (ستەیک + پەنیر)",
+        "description": "فینگەر بە گۆشتی نەرمی برێسکێت، سۆسی ستەیک و پەنیری تواوە",
+        "price": 6000,
+        "image": "15.JPG"
+      }
+    ],
+    "beef-burger": [
+      {
+        "id": "pasha-burger",
+        "name": "پاشا بەرگر",
+        "description": "گۆشتی جوانەگا + سۆسی ستەیک + قارچک + پەنیر",
+        "price": 6000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "classic-burger",
+        "name": "کلاسیک بەرگر",
+        "description": "گۆشتی جوانەگا + سۆسی ستەیک + کاهوو + تەماتە",
+        "price": 5000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "brisket-burger",
+        "name": "برێسکێت بەرگر",
+        "description": "گۆشتی جوانەگا + برێسکێت + سۆسی ستەیک + کاهوو + تەماتە + پەنیر + خەیار شۆڕ",
+        "price": 7000,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "original-burger",
+        "name": "ئۆریجینال بەرگر",
+        "description": "گۆشتی جوانەگا + سۆسی ستەیک + کاهوو + تەماتە + پەنیر + خەیار شۆڕ",
+        "price": 5500,
+        "image": "beef-burger.jpg"
+      },
+      {
+        "id": "mini-burger",
+        "name": "مینی بەرگر",
+        "description": "٥ پارچە مینی بەرگری گۆشتی جوانەگا + پەنیر",
+        "pieces": 5,
+        "price": 7000,
+        "image": "mini-burger.jpg"
+      }
+    ]
+  }
+}
