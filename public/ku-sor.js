@@ -1,201 +1,311 @@
-
 const menuData = {
-
-  main: [
-    { 
-      id: 1, 
-      name: '  برنج ومریشک و شلە', 
-      description: '', 
-      price: 5000,
-    image: '6.JPG'   // ✅ always from site root
-    }, { 
-      id: 100, 
-      name: 'سادە', 
-      description: '', 
-      price: 3000,
-    image: '7.JPG'   // ✅ always from site root
-    }, { 
-      id: 1333212, 
-      name: 'ڕیزۆی شاورمەی مریشک', 
-      description: '', 
-      price: 5000,
-    image: '210.JPG'   // ✅ always from site root
-    }, { 
-      id: 101230, 
-      name: 'ڕیزۆی شاورمەی گۆشت', 
-      description: '', 
-      price: 5000,
-    image: '211.JPG'   // ✅ always from site root
-    }, { 
-      id: 100, 
-      name: 'ڕیزۆی کریسپی ', 
-      description: '', 
-      price: 5000,
-    image: '212.JPG'   // ✅ always from site root
-    }
-  
-  
+  grills: [
+    {
+      id: 'grill-kebab',
+      name: 'کەباب',
+      description: 'شیشی کەبابی گۆشتی فرێش و بەلەزەت لەسەر خەڵووز',
+      price: 4000,
+      image: '1.JPG',
+    },
+    {
+      id: 'grill-chicken-tikka',
+      name: 'تکەی مریشک',
+      description: 'تکەی مریشکی تێکراو و برژاو لەسەر خەڵووز بە تامی تایبەت',
+      price: 4000,
+      image: '3.JPG',
+    },
+    {
+      id: 'grill-meat-tikka',
+      name: 'تکەی گۆشت',
+      description: 'تکەی گۆشتی نەرمی جوانەگا برژاو لەسەر خەڵووز',
+      price: 4000,
+      image: '2.JPG',
+    },
+    {
+      id: 'grill-maalak',
+      name: 'جەرگ',
+      description: 'جەرگی فرێش و برژاو بە بەهاراتی تایبەتی پاشا',
+      price: 4000,
+      image: '4.JPG',
+    },
+    {
+      id: 'grill-wings',
+      name: 'باڵی مریشک',
+      description: 'باڵی مریشکی برژاو لەسەر خەڵووز بە تامی نایاب',
+      price: 4000,
+      image: '88.JPG',
+    },
+    {
+      id: 'grill-heart',
+      name: 'دڵ',
+      description: 'دڵی فرێش و برژاو بە تامی تایبەت',
+      price: 4000,
+      image: '5.JPG',
+    },
+    {
+      id: 'grill-jalawi',
+      name: 'گورچیلە',
+      description: 'گورچیلەی فرێش و برژاو بە تێکراوی تایبەت',
+      price: 4000,
+      image: '4.JPG',
+    },
+    {
+      id: 'grill-liya',
+      name: 'دونگ',
+      description: 'دونگی برژاوی مقرمش لەسەر خەڵووز',
+      price: 4000,
+      image: '20.png',
+    },
   ],
-  bbq: [
-    { 
-      id: 2, 
-      name: 'کەبابی گۆشت', 
-      description: '', 
-      price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+  'chicken-wings': [
+    {
+      id: 'wings-6-honey-mustard',
+      name: '٦ باڵ بە صۆص (هانی ماستەرد)',
+      description: '٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی هانی ماستەرد',
+      pieces: 6,
+      sauce: 'هانی ماستەرد',
+      price: 5000,
+      image: '8.jpg',
     },
-    { 
-      id: 3, 
-      name: ' کەبابی مەحشی', 
-      description: '', 
-      price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+    {
+      id: 'wings-6-bbq',
+      name: '٦ باڵ بە صۆص (باربیکیۆ)',
+      description: '٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی باربیکیۆ',
+      pieces: 6,
+      sauce: 'باربیکیۆ',
+      price: 5000,
+      image: '88.JPG',
     },
-    { 
-      id: 4, 
-      name: ' تکەی گۆشت', 
-      description: '', 
-      price: 4000,
-    image: '2.JPG'   // ✅ always from site root
+    {
+      id: 'wings-6-buffalo',
+      name: '٦ باڵ بە صۆص (بافالۆ)',
+      description: '٦ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی توونی بافالۆ',
+      pieces: 6,
+      sauce: 'بافالۆ',
+      price: 5000,
+      image: '8.jpg',
     },
-    { 
-      id: 5, 
-      name: 'تکەی مریشک ', 
-      description: '', 
-      price: 4000,
-    image: '3.JPG'   // ✅ always from site root
+    {
+      id: 'wings-12-honey-mustard',
+      name: '١٢ باڵ بە صۆص (هانی ماستەرد)',
+      description: '١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی هانی ماستەرد',
+      pieces: 12,
+      sauce: 'هانی ماستەرد',
+      price: 9000,
+      image: '8.jpg',
     },
-    { 
-      id: 6, 
-      name: ' باڵی مریشک', 
-      description: '', 
-      price: 4000,
-      image: '88.JPG'
+    {
+      id: 'wings-12-bbq',
+      name: '١٢ باڵ بە صۆص (باربیکیۆ)',
+      description: '١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی باربیکیۆ',
+      pieces: 12,
+      sauce: 'باربیکیۆ',
+      price: 9000,
+      image: '88.JPG',
     },
-    { 
-      id: 7, 
-      name: 'جەرگ', 
-      description: '', 
-      price: 4000,
-    image: '4.JPG'   // ✅ always from site root
-    }
-    ,
-      { 
-      id: 8, 
-      name: 'دڵ', 
-      description: '', 
-      price: 4000,
-    image: '5.JPG'   // ✅ always from site root
+    {
+      id: 'wings-12-buffalo',
+      name: '١٢ باڵ بە صۆص (بافالۆ)',
+      description: '١٢ پارچە باڵی مریشکی کریسپی لەگەڵ سۆسی توونی بافالۆ',
+      pieces: 12,
+      sauce: 'بافالۆ',
+      price: 9000,
+      image: '8.jpg',
     },
-      { 
-      id: 9, 
-      name: 'گورچیلە', 
-      description: '', 
-      price: 4000,
-    image: '4.JPG'   // ✅ always from site root
+    {
+      id: 'wings-plain',
+      name: 'باڵی مریشک',
+      description: 'باڵی مریشکی سوورکراوەی کریسپی کلاسیک',
+      price: 9000,
+      image: '88.JPG',
     },
-     { 
-      id: 10, 
-      name: 'دونگ', 
-      description:'', 
-      price: 4000,
-    image: '20.png'   // ✅ always from site root
-    }
   ],
-  shawrma: [
-    { 
-      id: 11, 
-      name: 'شاورمەی مریشک', 
-      description: '',
+  shawarma: [
+    {
+      id: 'shawarma-chicken',
+      name: 'شاورمەی مریشک',
+      description: 'دەفەی شاورمەی مریشک لەگەڵ سۆسی سیری تایبەت و ترشیات',
       price: 2000,
-    image: '100.JPG'   // ✅ always from site root
+      image: '100.JPG',
     },
-    { 
-      id: 12, 
-      name: ' شاورمەی گۆشت', 
-      description: '', 
+    {
+      id: 'shawarma-meat',
+      name: 'شاورمەی گۆشت',
+      description: 'دەفەی شاورمەی گۆشت لەگەڵ ڕاشی و پیاز و سماق',
       price: 2500,
-    image: '99.JPG'   // ✅ always from site root
+      image: '99.JPG',
     },
-
-    { 
-      id: 13, 
-      name: 'ساجی مریشک', 
-      description: '', 
-      price: 3500,
-    image: '11.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 14, 
-      name: ' ساجی گۆشت', 
-      description: '', 
-      price: 4000,
-    image: '11.JPG'   // ✅ always from site root
-    },    { 
-      id: 144, 
-      name: ' صاج كريسپى ', 
-      description: '', 
-      price: 4000,
-    image: '12.JPG'   // ✅ always from site root
-    },  { 
-      id: 1444, 
-      name: 'ماعون مريشك', 
-      description: '', 
-      price: 4500,
-    image: '133.JPG'   // ✅ always from site root
-    }, { 
-      id: 1244, 
-      name: 'ماعون گۆشت', 
-      description: '', 
-      price: 5000,
-    image: '144.JPG'   // ✅ always from site root
-    },{ 
-      id: 12444, 
-    name:'كرانشى فرايز', 
-      description: 'فینگەر و كريسپى و صوص و هالپينؤ', 
-      price: 5000,
-    image: '15.JPG'   // ✅ always from site root
-    },{ 
-      id: 122434, 
-    name:'فینگەر بە صوصی تایبەت', 
-      description: '', 
-      price: 3000,
-    image: '200.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 12244, 
-      name:'فینگر', 
-      description: '', 
+    {
+      id: 'shawarma-potato',
+      name: 'شاورمەی پەتاتە',
+      description: 'ساندویچی پەتاتەی برژاو بە تێکراوی تایبەت و سۆس',
       price: 1500,
-    image: '16.jpg'   // ✅ always from site root
+      image: '16.jpg',
     },
-   
-   
+    {
+      id: 'falafel-wrap',
+      name: 'فەلافل بە نان',
+      description: 'ساندویچی فەلافلی کریسپی بە زەڵاتە و ڕاشی',
+      price: 1000,
+      image: 'falafel-wrap.jpg',
+    },
+    {
+      id: 'saj-meat',
+      name: 'ساجی گۆشت',
+      description: 'شاورمەی گۆشت لە ناو نانی ساجی برژاو و کریسپی',
+      price: 4500,
+      image: '11.JPG',
+    },
+    {
+      id: 'saj-chicken',
+      name: 'ساجی مریشک',
+      description: 'شاورمەی مریشک لە ناو نانی ساجی برژاو بە سۆسی سیر',
+      price: 4000,
+      image: '11.JPG',
+    },
+    {
+      id: 'plate-chicken',
+      name: 'ماعونی مریشک',
+      description: 'ماعونی شاورمەی مریشک پێشکەش دەکرێت لەگەڵ نان و سۆس و ترشیات',
+      price: 4500,
+      image: '133.JPG',
+    },
+    {
+      id: 'plate-meat',
+      name: 'ماعونی گۆشت',
+      description: 'ماعونی شاورمەی گۆشت لەگەڵ ڕاشی و نان و موقەبیلات',
+      price: 5000,
+      image: '144.JPG',
+    },
+    {
+      id: 'caesar-salad',
+      name: 'زەڵاتەی سیزەر',
+      description: 'کاهووی فرێش، پەنیری پارمیزان، نانی برژاو، مریشکی برژاو بە سۆسی سیزەر',
+      price: 5000,
+      image: 'caesar-salad.jpg',
+    },
   ],
-  drinks: [
-    { 
-      id: 15, 
-      name: ' بیبسی', 
-      description: '', 
-      price: 500,
-    image: '17.png'   // ✅ always from site root
-    }, 
-    { 
-      id: 16, 
-      name: 'ماستاو', 
-      description: '', 
-      price:500,
-    image: '18.png'   // ✅ always from site root
-    },    { 
-      id: 16, 
-      name: 'ماساوی خۆماڵی', 
-      description: '', 
-      price:1000,
-    image: '18.png'   // ✅ always from site root
+  'chicken-burger': [
+    {
+      id: 'chicken-burger-honey-mustard',
+      name: 'بەرگری مریشک (هانی ماستەرد)',
+      description: 'کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + هانی ماستەرد',
+      price: 5000,
+      image: 'chicken-burger.jpg',
     },
-
-
-  ]
+    {
+      id: 'chicken-burger-bbq',
+      name: 'بەرگری مریشک (باربیکیۆ)',
+      description: 'کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + باربیکیۆ',
+      price: 5000,
+      image: 'chicken-burger.jpg',
+    },
+    {
+      id: 'chicken-burger-buffalo',
+      name: 'بەرگری مریشک (بوفالۆ)',
+      description: 'کریسپی + کاهوو + تەماتە + خەیار شۆڕ + زەڵاتە + بوفالۆ',
+      price: 5000,
+      image: 'chicken-burger.jpg',
+    },
+  ],
+  rizo: [
+    {
+      id: 'rizo-chicken-shawarma',
+      name: 'ڕیزۆی شاورمەی مریشک',
+      description: 'برنجی ڕیزۆی تایبەت لەگەڵ شاورمەی مریشک و سۆس',
+      price: 5000,
+      image: '210.JPG',
+    },
+    {
+      id: 'rizo-meat-shawarma',
+      name: 'ڕیزۆی شاورمەی گۆشت',
+      description: 'برنجی ڕیزۆ لەگەڵ شاورمەی گۆشت و سۆسی تایبەت',
+      price: 5000,
+      image: '211.JPG',
+    },
+    {
+      id: 'rizo-crispy',
+      name: 'ڕیزۆی کریسپی',
+      description: 'برنجی ڕیزۆ لەگەڵ پارچە مریشکی کریسپی و سۆس',
+      price: 5000,
+      image: '212.JPG',
+    },
+  ],
+  finger: [
+    {
+      id: 'finger',
+      name: 'فینگەر',
+      description: 'پەتاتەی سوورکراوەی ئاڵتوونی و کریسپی',
+      price: 1500,
+      image: '16.jpg',
+    },
+    {
+      id: 'finger-sauce',
+      name: 'فینگەر بە صۆص',
+      description: 'فینگەری سوورکراوە پێشکەش دەکرێت لەگەڵ سۆسی تایبەت',
+      price: 3000,
+      image: '200.JPG',
+    },
+    {
+      id: 'chicken-box',
+      name: 'چیکن بۆکس',
+      description: 'بۆکسی پارچە مریشکی کریسپی لەگەڵ فینگەر و سۆس',
+      price: 5000,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-chicken-shawarma',
+      name: 'فینگەر + شاورمەی مریشک (هانی ماستەرد + پەنیر)',
+      description: 'فینگەر بە شاورمەی مریشک، سۆسی هانی ماستەرد و پەنیری تواوە',
+      price: 5500,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-brisket',
+      name: 'فینگەر + برێسکێت (ستەیک + پەنیر)',
+      description: 'فینگەر بە گۆشتی نەرمی برێسکێت، سۆسی ستەیک و پەنیری تواوە',
+      price: 6000,
+      image: '15.JPG',
+    },
+  ],
+  'beef-burger': [
+    {
+      id: 'pasha-burger',
+      name: 'پاشا بەرگر',
+      description: 'گۆشتی جوانەگا + سۆسی ستەیک + قارچک + پەنیر',
+      price: 6000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'classic-burger',
+      name: 'کلاسیک بەرگر',
+      description: 'گۆشتی جوانەگا + سۆسی ستەیک + کاهوو + تەماتە',
+      price: 5000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'brisket-burger',
+      name: 'برێسکێت بەرگر',
+      description: 'گۆشتی جوانەگا + برێسکێت + سۆسی ستەیک + کاهوو + تەماتە + پەنیر + خەیار شۆڕ',
+      price: 7000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'original-burger',
+      name: 'ئۆریجینال بەرگر',
+      description: 'گۆشتی جوانەگا + سۆسی ستەیک + کاهوو + تەماتە + پەنیر + خەیار شۆڕ',
+      price: 5500,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'mini-burger',
+      name: 'مینی بەرگر',
+      description: '٥ پارچە مینی بەرگری گۆشتی جوانەگا + پەنیر',
+      pieces: 5,
+      price: 7000,
+      image: 'mini-burger.jpg',
+    },
+  ],
 };
 
 export default menuData;

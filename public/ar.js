@@ -1,202 +1,311 @@
-
 const menuData = {
-
-  main: [
-    { 
-      id: 1, 
-      name: 'دجاج علی التمن', 
-      description: '', 
-      price: 5000,
-    image: '6.JPG'   // ✅ always from site root
-    }, { 
-      id: 100, 
-      name: 'تمن و مرق', 
-      description: '', 
-      price: 3000,
-    image: '7.JPG'   // ✅ always from site root
-    }, { 
-      id: 1333212, 
-      name: 'ڕیزۆی شاورمە دجاج', 
-      description: '', 
-      price: 5000,
-    image: '210.JPG'   // ✅ always from site root
-    }, { 
-      id: 101230, 
-      name: 'ریزو شاورمە لحم', 
-      description: '', 
-      price: 5000,
-    image: '211.JPG'   // ✅ always from site root
-    }, { 
-      id: 100, 
-      name: 'ریزو کریسبی ', 
-      description: '', 
-      price: 5000,
-    image: '212.JPG'   // ✅ always from site root
-    }
-  
-  
+  grills: [
+    {
+      id: 'grill-kebab',
+      name: 'كباب',
+      description: 'أسياخ كباب لحم طازج مشوي على الفحم بتتبيلة مميزة',
+      price: 4000,
+      image: '1.JPG',
+    },
+    {
+      id: 'grill-chicken-tikka',
+      name: 'تكة دجاج',
+      description: 'قطع دجاج متبلة ومشوية على الفحم بطعم شهي',
+      price: 4000,
+      image: '3.JPG',
+    },
+    {
+      id: 'grill-meat-tikka',
+      name: 'تكة لحم',
+      description: 'قطع لحم عجل طري متبل ومشوي على الفحم',
+      price: 4000,
+      image: '2.JPG',
+    },
+    {
+      id: 'grill-maalak',
+      name: 'معلاك',
+      description: 'معلاك (كبدة) غنم طازجة مشوية على الفحم بتوابل خاصة',
+      price: 4000,
+      image: '4.JPG',
+    },
+    {
+      id: 'grill-wings',
+      name: 'اجنحة',
+      description: 'أجنحة دجاج متبلة مشوية على الفحم بنكهة الشواء الأصيلة',
+      price: 4000,
+      image: '88.JPG',
+    },
+    {
+      id: 'grill-heart',
+      name: 'قلب',
+      description: 'أسياخ قلوب طازجة متبلة ومشوية بعناية',
+      price: 4000,
+      image: '5.JPG',
+    },
+    {
+      id: 'grill-jalawi',
+      name: 'جلاوي',
+      description: 'أسياخ كلى (جلاوي) طازجة مشوية بتتبيلتنا الخاصة',
+      price: 4000,
+      image: '4.JPG',
+    },
+    {
+      id: 'grill-liya',
+      name: 'لية',
+      description: 'لية غنم مقرمشة مشوية على الفحم',
+      price: 4000,
+      image: '20.png',
+    },
   ],
-  bbq: [
-    { 
-      id: 2, 
-      name: 'کەباب', 
-      description: '', 
-      price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+  'chicken-wings': [
+    {
+      id: 'wings-6-honey-mustard',
+      name: '6 قطعة اجنحة مع صوص (هاني ماستر)',
+      description: '6 قطع أجنحة دجاج مقرمشة مع صوص هاني ماستر',
+      pieces: 6,
+      sauce: 'هاني ماستر',
+      price: 5000,
+      image: '8.jpg',
     },
-    { 
-      id: 3, 
-      name: ' کەباب محشی', 
-      description: '', 
-      price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+    {
+      id: 'wings-6-bbq',
+      name: '6 قطعة اجنحة مع صوص (باربيكيو)',
+      description: '6 قطع أجنحة دجاج مقرمشة مع صوص باربيكيو غني',
+      pieces: 6,
+      sauce: 'باربيكيو',
+      price: 5000,
+      image: '88.JPG',
     },
-    { 
-      id: 4, 
-      name: ' تکە لحم', 
-      description: '', 
-      price: 4000,
-    image: '2.JPG'   // ✅ always from site root
+    {
+      id: 'wings-6-buffalo',
+      name: '6 قطعة اجنحة مع صوص (بافالو)',
+      description: '6 قطع أجنحة دجاج مقرمشة مع صوص بافالو الحار',
+      pieces: 6,
+      sauce: 'بافالو',
+      price: 5000,
+      image: '8.jpg',
     },
-    { 
-      id: 5, 
-      name: 'تکە دجاج ', 
-      description: '', 
-      price: 4000,
-    image: '3.JPG'   // ✅ always from site root
+    {
+      id: 'wings-12-honey-mustard',
+      name: '12 قطعة اجنحة مع صوص (هاني ماستر)',
+      description: '12 قطعة أجنحة دجاج مقرمشة مع صوص هاني ماستر',
+      pieces: 12,
+      sauce: 'هاني ماستر',
+      price: 9000,
+      image: '8.jpg',
     },
-    { 
-      id: 6, 
-      name: 'اجنحە', 
-      description: '', 
-      price: 4000,
-      image: '88.JPG'
+    {
+      id: 'wings-12-bbq',
+      name: '12 قطعة اجنحة مع صوص (باربيكيو)',
+      description: '12 قطعة أجنحة دجاج مقرمشة مع صوص باربيكيو غني',
+      pieces: 12,
+      sauce: 'باربيكيو',
+      price: 9000,
+      image: '88.JPG',
     },
-    { 
-      id: 7, 
-      name: 'معلاک', 
-      description: '', 
-      price: 4000,
-    image: '4.JPG'   // ✅ always from site root
-    }
-    ,
-      { 
-      id: 8, 
-      name: 'قلب', 
-      description: '', 
-      price: 4000,
-    image: '5.JPG'   // ✅ always from site root
+    {
+      id: 'wings-12-buffalo',
+      name: '12 قطعة اجنحة مع صوص (بافالو)',
+      description: '12 قطعة أجنحة دجاج مقرمشة مع صوص بافالو الحار',
+      pieces: 12,
+      sauce: 'بافالو',
+      price: 9000,
+      image: '8.jpg',
     },
-      { 
-      id: 9, 
-      name: 'جلاوی', 
-      description: '', 
-      price: 4000,
-    image: '4.JPG'   // ✅ always from site root
+    {
+      id: 'wings-plain',
+      name: 'اجنحة دجاج',
+      description: 'أجنحة دجاج مقلية مقرمشة على الطريقة الكلاسيكية',
+      price: 9000,
+      image: '88.JPG',
     },
-     { 
-      id: 10, 
-      name: 'لییە', 
-      description:'', 
-      price: 4000,
-    image: '20.png'   // ✅ always from site root
-    }
   ],
-  shawrma: [
-    { 
-      id: 11, 
-      name: 'شاورما دجاج', 
-      description: '',
+  shawarma: [
+    {
+      id: 'shawarma-chicken',
+      name: 'شاورما دجاج',
+      description: 'لفافة شاورما دجاج متبلة مع صوص الثوم والمخلل',
       price: 2000,
-    image: '100.JPG'   // ✅ always from site root
+      image: '100.JPG',
     },
-    { 
-      id: 12, 
-      name: ' شاورما لحم', 
-      description: '', 
+    {
+      id: 'shawarma-meat',
+      name: 'شاورما لحم',
+      description: 'لفافة شاورما لحم طازج مع طحينية وبصل وسماق',
       price: 2500,
-    image: '99.JPG'   // ✅ always from site root
+      image: '99.JPG',
     },
-
-    { 
-      id: 13, 
-      name: 'صاج دجاج', 
-      description: '', 
-      price: 3500,
-    image: '11.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 14, 
-      name: ' صاج لحم', 
-      description: '', 
-      price: 4000,
-    image: '11.JPG'   // ✅ always from site root
-    },    { 
-      id: 144, 
-      name: ' صاج كريسپى ', 
-      description: '', 
-      price: 4000,
-    image: '12.JPG'   // ✅ always from site root
-    },  { 
-      id: 1444, 
-      name: 'ماعون دجاج', 
-      description: '', 
-      price: 4500,
-    image: '133.JPG'   // ✅ always from site root
-    }, { 
-      id: 1244, 
-      name: 'ماعون لحم', 
-      description: '', 
-      price: 5000,
-    image: '144.JPG'   // ✅ always from site root
-    },{ 
-      id: 12444, 
-      name:'كرانشى فرايز', 
-      description: 'ينگه ر و كريسپى و صوص و هالپينؤ', 
-      price: 5000,
-    image: '15.JPG'   // ✅ always from site root
-    },{ 
-      id: 122434, 
-    name:'فینگەر مع صوصی', 
-      description: '', 
-      price: 3000,
-    image: '200.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 12244, 
-      name:'فنگر', 
-      description: '', 
+    {
+      id: 'shawarma-potato',
+      name: 'شاورما بطاطا',
+      description: 'ساندوتش بطاطا مقرمشة بتتبيلة خاصة وصوص كريمي',
       price: 1500,
-    image: '16.jpg'   // ✅ always from site root
+      image: '16.jpg',
     },
-   
-   
+    {
+      id: 'falafel-wrap',
+      name: 'فلافل خبز',
+      description: 'ساندوتش فلافل مقرمشة مع سلطة طازجة وصوص الطحينية',
+      price: 1000,
+      image: 'falafel-wrap.jpg',
+    },
+    {
+      id: 'saj-meat',
+      name: 'صاج لحم',
+      description: 'شاورما لحم ملفوفة بخبز الصاج المحمص والمقرمش',
+      price: 4500,
+      image: '11.JPG',
+    },
+    {
+      id: 'saj-chicken',
+      name: 'صاج دجاج',
+      description: 'شاورما دجاج ملفوفة بخبز الصاج المحمص مع صوص الثوم',
+      price: 4000,
+      image: '11.JPG',
+    },
+    {
+      id: 'plate-chicken',
+      name: 'ماعون دجاج',
+      description: 'ماعون شاورما دجاج يقدم مع الخبز والمخللات والصوصات',
+      price: 4500,
+      image: '133.JPG',
+    },
+    {
+      id: 'plate-meat',
+      name: 'ماعون لحم',
+      description: 'ماعون شاورما لحم شهي يقدم مع الخبز والطحينية والمقبلات',
+      price: 5000,
+      image: '144.JPG',
+    },
+    {
+      id: 'caesar-salad',
+      name: 'سلاطة سيزر',
+      description: 'خس مقرمش مع جبن بارميزان وخبز محمص وقطع دجاج وصوص سيزر',
+      price: 5000,
+      image: 'caesar-salad.jpg',
+    },
   ],
-  drinks: [
-    { 
-      id: 15, 
-      name: ' بیبسی', 
-      description: '', 
-      price: 500,
-    image: '17.png'   // ✅ always from site root
-    }, 
-    { 
-      id: 16, 
-      name: 'لبن', 
-      description: '', 
-      price:500,
-    image: '18.png'   // ✅ always from site root
+  'chicken-burger': [
+    {
+      id: 'chicken-burger-honey-mustard',
+      name: 'بركر دجاج (هاني ماستر)',
+      description: 'كرسبي + خس + طماطة + خيار مخلل + زلاطة + هاني ماستر',
+      price: 5000,
+      image: 'chicken-burger.jpg',
     },
-     { 
-      id: 16333, 
-      name: ' لبن محلی', 
-      description: '', 
-      price:1000,
-    image: '18.png'   // ✅ always from site root
+    {
+      id: 'chicken-burger-bbq',
+      name: 'بركر دجاج (باربيكيو)',
+      description: 'كرسبي + خس + طماطة + خيار مخلل + زلاطة + باربيكيو',
+      price: 5000,
+      image: 'chicken-burger.jpg',
     },
-
-
-  ]
+    {
+      id: 'chicken-burger-buffalo',
+      name: 'بركر دجاج (بوفالو)',
+      description: 'كرسبي + خس + طماطة + خيار مخلل + زلاطة + بوفالو',
+      price: 5000,
+      image: 'chicken-burger.jpg',
+    },
+  ],
+  rizo: [
+    {
+      id: 'rizo-chicken-shawarma',
+      name: 'ريزو شاورمة دجاج',
+      description: 'رز ريزو خاص مع شاورما دجاج وصوص هاني ماستر وباربيكيو',
+      price: 5000,
+      image: '210.JPG',
+    },
+    {
+      id: 'rizo-meat-shawarma',
+      name: 'ريزو شاورمة لحم',
+      description: 'رز ريزو متبل مع شاورما لحم وصوص هاني ماستر وباربيكيو',
+      price: 5000,
+      image: '211.JPG',
+    },
+    {
+      id: 'rizo-crispy',
+      name: 'ريزو كرسبي',
+      description: 'رز ريزو لذيذ مع قطع دجاج كريسبي وصوصات مميزة',
+      price: 5000,
+      image: '212.JPG',
+    },
+  ],
+  finger: [
+    {
+      id: 'finger',
+      name: 'فينكر',
+      description: 'بطاطا مقلية ذهبية مقرمشة وطازجة',
+      price: 1500,
+      image: '16.jpg',
+    },
+    {
+      id: 'finger-sauce',
+      name: 'فينكر مع صوص',
+      description: 'بطاطا مقلية مقرمشة تقدم مع صوص مميز ولذيذ',
+      price: 3000,
+      image: '200.JPG',
+    },
+    {
+      id: 'chicken-box',
+      name: 'جيكن بوكس',
+      description: 'بوكس قطع دجاج مقرمشة مع فينكر وصوصات',
+      price: 5000,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-chicken-shawarma',
+      name: 'فينكر + شاورمة دجاج (هاني ماستر + جبن)',
+      description: 'فينكر مع شاورمة دجاج مغطاة بصوص هاني ماستر وجبن ذائب',
+      price: 5500,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-brisket',
+      name: 'فينكر + برسكت (ستيك + جبن)',
+      description: 'فينكر مع لحم بريسكت طري وصوص ستيك وجبن ذائب',
+      price: 6000,
+      image: '15.JPG',
+    },
+  ],
+  'beef-burger': [
+    {
+      id: 'pasha-burger',
+      name: 'باشا بركر',
+      description: 'لحم عجل + صوص ستيك + فطر + جبن',
+      price: 6000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'classic-burger',
+      name: 'كلاسيك بركر',
+      description: 'لحم عجل + صوص ستيك + خس + طماطة',
+      price: 5000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'brisket-burger',
+      name: 'برسكت بركر',
+      description: 'لحم عجل + برسكت + صوص ستيك + خس + طماطة + جبن + خيار مخلل',
+      price: 7000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'original-burger',
+      name: 'اورجينال بركر',
+      description: 'لحم عجل + صوص ستيك + خس + طماطة + جبن + خيار مخلل',
+      price: 5500,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'mini-burger',
+      name: 'ميني بركر',
+      description: '5 قطع لحم عجل + جبن',
+      pieces: 5,
+      price: 7000,
+      image: 'mini-burger.jpg',
+    },
+  ],
 };
 
 export default menuData;

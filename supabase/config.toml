@@ -1,0 +1,5 @@
+# Supabase CLI project config (used by `supabase link` / `supabase db push`).
+project_id = "campus-eats"
+
+[db]
+major_version = 17

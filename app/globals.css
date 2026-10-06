@@ -1,26 +1,147 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Design tokens. Brand = charcoal-grill ember; ink/cream = warm neutrals. */
+@theme {
+  --font-sans: var(--font-latin), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-brand-50: #fff4ed;
+  --color-brand-100: #ffe6d5;
+  --color-brand-200: #fecba9;
+  --color-brand-300: #fda872;
+  --color-brand-400: #fb7a3a;
+  --color-brand-500: #f15a1b;
+  --color-brand-600: #d4440d; /* 4.5:1 on white - primary actions */
+  --color-brand-700: #b0370d;
+  --color-brand-800: #8c2f12;
+  --color-brand-900: #732a12;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-ink-50: #faf8f5;
+  --color-ink-100: #f3efe9;
+  --color-ink-200: #e6dfd6;
+  --color-ink-300: #cfc5b9;
+  --color-ink-400: #a3978a;
+  --color-ink-500: #776c61; /* 4.9:1 on cream - secondary text */
+  --color-ink-600: #5a5149;
+  --color-ink-700: #423b35;
+  --color-ink-800: #2b2622;
+  --color-ink-900: #1c1815;
+
+  --color-cream: #fbf8f3;
+  --color-herb-50: #ecf8f1;
+  --color-herb-100: #d3efdf;
+  --color-herb-600: #1c7a50;
+  --color-herb-700: #166241;
+  --color-saffron-100: #fff3cc;
+  --color-saffron-400: #f5b301;
+  --color-saffron-700: #8a5a00;
+  --color-danger-50: #fdf0ee;
+  --color-danger-600: #c2311f;
+  --color-danger-700: #a02617;
+
+  --shadow-card: 0 1px 2px rgb(28 24 21 / 0.04), 0 4px 16px rgb(28 24 21 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(28 24 21 / 0.05), 0 12px 32px rgb(28 24 21 / 0.12);
+  --shadow-pop: 0 8px 40px rgb(28 24 21 / 0.18);
+
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-rise: rise 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: pop 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  --animate-slide-in: slide-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-bump: bump 0.35s ease-out;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  }
+  @keyframes slide-in {
+    from { transform: translateX(var(--slide-from, 100%)); }
+  }
+  @keyframes bump {
+    40% { transform: scale(1.25); }
+  }
+  @keyframes shimmer {
+    to { background-position: -200% 0; }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+  }
+  [dir="rtl"] {
+    --slide-from: -100%;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--color-brand-200);
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-page { padding-inline: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-ink-200);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .skeleton {
+    border-radius: 0.75rem;
+    background: linear-gradient(90deg, var(--color-ink-100) 25%, var(--color-ink-50) 50%, var(--color-ink-100) 75%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

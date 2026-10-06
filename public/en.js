@@ -1,175 +1,311 @@
-
 const menuData = {
-
-  main: [
-    { 
-      id: 1, 
-      name: 'دجاج علی التمن', 
-      description: '', 
-      price: 5000,
-    image: '6.JPG'   // ✅ always from site root
-    }, { 
-      id: 100, 
-      name: 'تمن و مرق', 
-      description: '', 
-      price: 3000,
-    image: '7.JPG'   // ✅ always from site root
-    }],
-  bbq: [
-    { 
-      id: 2, 
-      name: 'کەباب', 
-      description: '', 
+  grills: [
+    {
+      id: 'grill-kebab',
+      name: 'Kebab',
+      description: 'Traditional grilled minced meat skewers seasoned with fresh herbs and spices',
       price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+      image: '1.JPG',
     },
-    { 
-      id: 3, 
-      name: ' کەباب محشی', 
-      description: '', 
+    {
+      id: 'grill-chicken-tikka',
+      name: 'Chicken Tikka',
+      description: 'Marinated tender chicken chunks grilled to perfection over charcoal',
       price: 4000,
-    image: '1.JPG'   // ✅ always from site root
+      image: '3.JPG',
     },
-    { 
-      id: 4, 
-      name: ' تکە لحم', 
-      description: '', 
+    {
+      id: 'grill-meat-tikka',
+      name: 'Meat Tikka',
+      description: 'Succulent cubes of marinated beef char-grilled with rich flavors',
       price: 4000,
-    image: '2.JPG'   // ✅ always from site root
+      image: '2.JPG',
     },
-    { 
-      id: 5, 
-      name: 'تکە دجاج ', 
-      description: '', 
+    {
+      id: 'grill-maalak',
+      name: 'Liver (Maalak)',
+      description: 'Fresh grilled lamb liver skewers with authentic spices',
       price: 4000,
-    image: '3.JPG'   // ✅ always from site root
+      image: '4.JPG',
     },
-    { 
-      id: 6, 
-      name: 'اجنحە', 
-      description: '', 
+    {
+      id: 'grill-wings',
+      name: 'Wings',
+      description: 'Charcoal-grilled juicy chicken wings with savory seasoning',
       price: 4000,
-      image: '8.JPG'
+      image: '88.JPG',
     },
-    { 
-      id: 7, 
-      name: 'معلاک', 
-      description: '', 
+    {
+      id: 'grill-heart',
+      name: 'Heart',
+      description: 'Tender grilled heart skewers expertly seasoned',
       price: 4000,
-    image: '4.JPG'   // ✅ always from site root
-    }
-    ,
-      { 
-      id: 8, 
-      name: 'قلب', 
-      description: '', 
-      price: 4000,
-    image: '5.JPG'   // ✅ always from site root
+      image: '5.JPG',
     },
-      { 
-      id: 9, 
-      name: 'گورچیلە', 
-      description: '', 
+    {
+      id: 'grill-jalawi',
+      name: 'Jalawi',
+      description: 'Fresh grilled kidney skewers spiced with secret blend',
       price: 4000,
-    image: '4.JPG'   // ✅ always from site root
+      image: '4.JPG',
     },
-     { 
-      id: 10, 
-      name: 'لییە', 
-      description:'', 
+    {
+      id: 'grill-liya',
+      name: 'Liya',
+      description: 'Crispy charcoal-rendered lamb tail fat skewers',
       price: 4000,
-    image: '20.png'   // ✅ always from site root
-    }
+      image: '20.png',
+    },
   ],
-  shawrma: [
-    { 
-      id: 11, 
-      name: 'شاورما دجاج', 
-      description: '',
+  'chicken-wings': [
+    {
+      id: 'wings-6-honey-mustard',
+      name: '6 pc Wings – Honey Mustard',
+      description: '6 pieces crispy wings tossed in rich honey mustard glaze',
+      pieces: 6,
+      sauce: 'Honey Mustard',
+      price: 5000,
+      image: '8.jpg',
+    },
+    {
+      id: 'wings-6-bbq',
+      name: '6 pc Wings – BBQ',
+      description: '6 pieces crispy wings smothered in smoky BBQ sauce',
+      pieces: 6,
+      sauce: 'BBQ',
+      price: 5000,
+      image: '88.JPG',
+    },
+    {
+      id: 'wings-6-buffalo',
+      name: '6 pc Wings – Buffalo',
+      description: '6 pieces crispy wings coated in zesty spicy buffalo sauce',
+      pieces: 6,
+      sauce: 'Buffalo',
+      price: 5000,
+      image: '8.jpg',
+    },
+    {
+      id: 'wings-12-honey-mustard',
+      name: '12 pc Wings – Honey Mustard',
+      description: '12 pieces crispy wings tossed in rich honey mustard glaze',
+      pieces: 12,
+      sauce: 'Honey Mustard',
+      price: 9000,
+      image: '8.jpg',
+    },
+    {
+      id: 'wings-12-bbq',
+      name: '12 pc Wings – BBQ',
+      description: '12 pieces crispy wings smothered in smoky BBQ sauce',
+      pieces: 12,
+      sauce: 'BBQ',
+      price: 9000,
+      image: '88.JPG',
+    },
+    {
+      id: 'wings-12-buffalo',
+      name: '12 pc Wings – Buffalo',
+      description: '12 pieces crispy wings coated in zesty spicy buffalo sauce',
+      pieces: 12,
+      sauce: 'Buffalo',
+      price: 9000,
+      image: '8.jpg',
+    },
+    {
+      id: 'wings-plain',
+      name: 'Chicken Wings',
+      description: 'Classic crispy golden fried chicken wings',
+      price: 9000,
+      image: '88.JPG',
+    },
+  ],
+  shawarma: [
+    {
+      id: 'shawarma-chicken',
+      name: 'Chicken Shawarma',
+      description: 'Thinly sliced seasoned chicken wrapped with garlic cream and pickles',
       price: 2000,
-    image: '10.JPG'   // ✅ always from site root
+      image: '100.JPG',
     },
-    { 
-      id: 12, 
-      name: ' شاورما لحم', 
-      description: '', 
+    {
+      id: 'shawarma-meat',
+      name: 'Meat Shawarma',
+      description: 'Spiced tender beef shawarma slices with tahini and sumac onions',
       price: 2500,
-    image: '9.JPG'   // ✅ always from site root
+      image: '99.JPG',
     },
-
-    { 
-      id: 13, 
-      name: 'صاج دجاج', 
-      description: '', 
-      price: 3500,
-    image: '11.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 14, 
-      name: ' صاج لحم', 
-      description: '', 
-      price: 4000,
-    image: '11.JPG'   // ✅ always from site root
-    },    { 
-      id: 144, 
-      name: ' صاج كريسپى ', 
-      description: '', 
-      price: 4000,
-    image: '12.JPG'   // ✅ always from site root
-    },  { 
-      id: 1444, 
-      name: 'ماعون دجاج', 
-      description: '', 
-      price: 4500,
-    image: '13.JPG'   // ✅ always from site root
-    }, { 
-      id: 1244, 
-      name: 'ماعون لحم', 
-      description: '', 
-      price: 5000,
-    image: '14.JPG'   // ✅ always from site root
-    },{ 
-      id: 12444, 
-      name:'فينگه ر و كريسپى و صوص و هالپينؤ', 
-      description: '', 
-      price: 5000,
-    image: '15.JPG'   // ✅ always from site root
-    },
-    { 
-      id: 12244, 
-      name:'فنگر', 
-      description: '', 
+    {
+      id: 'shawarma-potato',
+      name: 'Potato Shawarma',
+      description: 'Warm flatbread rolled with crispy potatoes, garlic paste, and seasoning',
       price: 1500,
-    image: '16.jpg'   // ✅ always from site root
+      image: '16.jpg',
     },
-   
-   
+    {
+      id: 'falafel-wrap',
+      name: 'Falafel Wrap',
+      description: 'Crispy fried chickpea falafels with fresh salad and tahini in flatbread',
+      price: 1000,
+      image: 'falafel-wrap.jpg',
+    },
+    {
+      id: 'saj-meat',
+      name: 'Meat Saj',
+      description: 'Beef shawarma rolled in crisp toasted thin saj bread',
+      price: 4500,
+      image: '11.JPG',
+    },
+    {
+      id: 'saj-chicken',
+      name: 'Chicken Saj',
+      description: 'Chicken shawarma rolled in toasted saj bread with garlic sauce',
+      price: 4000,
+      image: '11.JPG',
+    },
+    {
+      id: 'plate-chicken',
+      name: 'Chicken Plate',
+      description: 'Generous platter of chicken shawarma slices served with bread, pickles, and dips',
+      price: 4500,
+      image: '133.JPG',
+    },
+    {
+      id: 'plate-meat',
+      name: 'Meat Plate',
+      description: 'Hearty platter of marinated meat shawarma served with bread, tahini, and sides',
+      price: 5000,
+      image: '144.JPG',
+    },
+    {
+      id: 'caesar-salad',
+      name: 'Caesar Salad',
+      description: 'Crisp romaine lettuce, parmesan cheese, crunchy croutons, and grilled chicken with creamy caesar dressing',
+      price: 5000,
+      image: 'caesar-salad.jpg',
+    },
   ],
-  drinks: [
-    { 
-      id: 15, 
-      name: ' بیبسی', 
-      description: '', 
-      price: 500,
-    image: '17.png'   // ✅ always from site root
-    }, 
-    { 
-      id: 16, 
-      name: 'لبن', 
-      description: '', 
-      price:500,
-    image: '18.png'   // ✅ always from site root
+  'chicken-burger': [
+    {
+      id: 'chicken-burger-honey-mustard',
+      name: 'Chicken Burger – Honey Mustard',
+      description: 'Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, Honey Mustard',
+      price: 5000,
+      image: 'chicken-burger.jpg',
     },
-     { 
-      id: 16333, 
-      name: ' لبن محلی', 
-      description: '', 
-      price:1000,
-    image: '18.png'   // ✅ always from site root
+    {
+      id: 'chicken-burger-bbq',
+      name: 'Chicken Burger – BBQ',
+      description: 'Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, BBQ',
+      price: 5000,
+      image: 'chicken-burger.jpg',
     },
-
-
-  ]
+    {
+      id: 'chicken-burger-buffalo',
+      name: 'Chicken Burger – Buffalo',
+      description: 'Crispy chicken, Lettuce, Tomato, Pickles, Coleslaw, Buffalo',
+      price: 5000,
+      image: 'chicken-burger.jpg',
+    },
+  ],
+  rizo: [
+    {
+      id: 'rizo-chicken-shawarma',
+      name: 'Rizo Chicken Shawarma',
+      description: 'Fragrant yellow rizo rice topped with chicken shawarma and chef sauce',
+      price: 5000,
+      image: '210.JPG',
+    },
+    {
+      id: 'rizo-meat-shawarma',
+      name: 'Rizo Meat Shawarma',
+      description: 'Aromatic rizo rice served with savory meat shawarma slices and special sauce',
+      price: 5000,
+      image: '211.JPG',
+    },
+    {
+      id: 'rizo-crispy',
+      name: 'Rizo Crispy',
+      description: 'Steaming rizo rice crowned with crunchy crispy chicken tenders and sauces',
+      price: 5000,
+      image: '212.JPG',
+    },
+  ],
+  finger: [
+    {
+      id: 'finger',
+      name: 'Finger',
+      description: 'Golden crispy potato french fries served hot and lightly salted',
+      price: 1500,
+      image: '16.jpg',
+    },
+    {
+      id: 'finger-sauce',
+      name: 'Finger with Sauce',
+      description: 'Crispy french fries served with delicious signature dipping sauce',
+      price: 3000,
+      image: '200.JPG',
+    },
+    {
+      id: 'chicken-box',
+      name: 'Chicken Box',
+      description: 'Crispy golden chicken pieces paired with french fries and sauce',
+      price: 5000,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-chicken-shawarma',
+      name: 'Finger + Chicken Shawarma (Honey Mustard + Cheese)',
+      description: 'Loaded fries topped with chicken shawarma, melted cheese, and honey mustard sauce',
+      price: 5500,
+      image: '15.JPG',
+    },
+    {
+      id: 'finger-brisket',
+      name: 'Finger + Brisket (Steak + Cheese)',
+      description: 'Loaded fries with tender beef brisket, rich steak sauce, and melted cheese',
+      price: 6000,
+      image: '15.JPG',
+    },
+  ],
+  'beef-burger': [
+    {
+      id: 'pasha-burger',
+      name: 'Pasha Burger',
+      description: 'Veal, Steak sauce, Mushroom, Cheese',
+      price: 6000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'classic-burger',
+      name: 'Classic Burger',
+      description: 'Veal, Steak sauce, Lettuce, Tomato',
+      price: 5000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'brisket-burger',
+      name: 'Brisket Burger',
+      description: 'Veal, Brisket, Steak sauce, Lettuce, Tomato, Cheese, Pickles',
+      price: 7000,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'original-burger',
+      name: 'Original Burger',
+      description: 'Veal, Steak sauce, Lettuce, Tomato, Cheese, Pickles',
+      price: 5500,
+      image: 'beef-burger.jpg',
+    },
+    {
+      id: 'mini-burger',
+      name: 'Mini Burger',
+      description: '5 pieces Veal sliders with melted cheese on mini brioche buns',
+      pieces: 5,
+      price: 7000,
+      image: 'mini-burger.jpg',
+    },
+  ],
 };
 
 export default menuData;
