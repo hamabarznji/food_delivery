@@ -93,6 +93,8 @@ if (!restaurant) {
         description_ar: 'مشويات على الفحم، شاورما، بركر وأجنحة مقرمشة.',
         description_ku: 'برژاوی سەر خەڵووز، شاورمە، بەرگر و باڵی برژاو.',
         phone: '0750 448 98 92 - 0771 101 05 00',
+        logo_url: '/brand/logo.webp', // shipped in /public/brand
+        cover_url: '/brand/cover.webp',
         prep_minutes: 20,
         is_active: true,
         is_featured: true,
